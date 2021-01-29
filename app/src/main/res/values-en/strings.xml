@@ -11,4 +11,7 @@
     <string name="setting">Settings</string>
     <string name="logout">Logout</string>
     <string name="about">About</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login_bt">Login</string>
 </resources>

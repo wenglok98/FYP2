@@ -7,6 +7,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import com.example.fyp2.BaseApp.AppManager;
 import com.example.fyp2.BaseApp.BaseActivity;
@@ -36,7 +37,7 @@ public class SplashScreenActivity extends BaseActivity {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        AppManager.getAppManager().ToOtherActivity(MainActivity.class);
+                        AppManager.getAppManager().ToOtherActivity(LoginActivity.class);
                         finishAffinity();
 //                        Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
 //                        SplashScreenActivity.this.startActivity(intent);
