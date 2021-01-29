@@ -1,0 +1,32 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/menu_group_1">
+        <item
+            android:id="@+id/Profile"
+            android:icon="@drawable/ic_baseline_person_24"
+            android:title="Profile" />
+
+        <item
+            android:id="@+id/Enrollment"
+            android:icon="@drawable/ic_baseline_add_24"
+            android:title="Enrollment" />
+
+
+    </group>
+    <group android:id="@+id/menu_group_2">
+        <item
+            android:id="@+id/menu_settings"
+            android:icon="@drawable/ic_baseline_settings_24"
+            android:title="Settings" />
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/ic_baseline_reply_24"
+
+            android:title="Logout" />
+    </group>
+    <group android:id="@+id/menu_group_3">
+        <item
+            android:id="@+id/menu_about"
+            android:title="About" />
+
+    </group>
+</menu>

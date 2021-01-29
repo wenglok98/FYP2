@@ -2,13 +2,13 @@
     <!-- Base application theme. -->
     <style name="Theme.Fyp2" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimary">#ababab</item>
+        <item name="colorPrimaryVariant">#666565</item>
+        <item name="colorOnPrimary">#949494</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">#cae5e8</item>
+        <item name="colorSecondaryVariant">#8da3a6</item>
+        <item name="colorOnSecondary">#a7ccd1</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/cardview_dark_background</item>
         <!-- Customize your theme here. -->
