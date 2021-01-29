@@ -2,9 +2,9 @@
 <resources>
 
     <string-array name="titles">
-        <item>Home</item>
-        <item>Forecast</item>
-        <item>Message</item>
+        <item>@string/home</item>
+        <item>@string/forecast</item>
+        <item>@string/message</item>
     </string-array>
 
 </resources>

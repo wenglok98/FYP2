@@ -3,12 +3,12 @@
         <item
             android:id="@+id/Profile"
             android:icon="@drawable/ic_baseline_person_24"
-            android:title="Profile" />
+            android:title="@string/profile" />
 
         <item
             android:id="@+id/Enrollment"
             android:icon="@drawable/ic_baseline_add_24"
-            android:title="Enrollment" />
+            android:title="@string/enrollment" />
 
 
     </group>
@@ -16,17 +16,17 @@
         <item
             android:id="@+id/menu_settings"
             android:icon="@drawable/ic_baseline_settings_24"
-            android:title="Settings" />
+            android:title="@string/setting" />
         <item
             android:id="@+id/logout"
             android:icon="@drawable/ic_baseline_reply_24"
 
-            android:title="Logout" />
+            android:title="@string/logout" />
     </group>
     <group android:id="@+id/menu_group_3">
         <item
             android:id="@+id/menu_about"
-            android:title="About" />
+            android:title="@string/about" />
 
     </group>
 </menu>

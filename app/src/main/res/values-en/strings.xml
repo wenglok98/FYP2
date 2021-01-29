@@ -2,4 +2,13 @@
 <resources>
     <string name="app_name">Fyp2</string>
     <string name="welcome">Welcomssssse</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home">Home</string>
+    <string name="forecast">Forecast</string>
+    <string name="message">Message</string>
+    <string name="profile">Profile</string>
+    <string name="enrollment">Enrollment</string>
+    <string name="setting">Settings</string>
+    <string name="logout">Logout</string>
+    <string name="about">About</string>
 </resources>
