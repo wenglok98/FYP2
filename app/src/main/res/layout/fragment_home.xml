@@ -9,6 +9,7 @@
     tools:context=".Fragment.HomeFragment">
 
     <LinearLayout
+        android:id="@+id/homell"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -46,6 +47,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/_30sdp"
             android:paddingRight="@dimen/_30sdp"
+            android:layout_marginBottom="@dimen/_30sdp"
             android:orientation="horizontal"
             android:weightSum="2">
 
