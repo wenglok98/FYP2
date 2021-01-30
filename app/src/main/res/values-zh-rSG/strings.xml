@@ -14,4 +14,8 @@
     <string name="username">用戶名</string>
     <string name="password">密碼</string>
     <string name="login_bt">登入</string>
+    <string name="login_top"><b><u>登入</u></b></string>
+    <string name="signup_top"><b><u>注冊</u></b></string>
+    <string name="email">电子邮件</string>
+    <string name="confirm_password">確認密碼</string>
 </resources>

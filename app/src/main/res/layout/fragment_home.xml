@@ -1,10 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    android:overScrollMode="never"
+    android:scrollbars="none"
+    tools:context=".Fragment.HomeFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/piechart"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_300sdp" />
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/stv_4"
+            android:layout_width="350dp"
+            android:layout_height="148.4dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:gravity="center"
+            android:text="Subject"
+            android:textColor="@color/white"
+            android:textSize="36dp"
+
+            android:textStyle="bold"
+            app:stv_corner="6dp"
+            app:stv_drawableAsBackground="true"
+            app:stv_isShowState="true"
+            app:stv_scaleType="center"
+            app:stv_stroke_color="@color/opacity_8_gray_4c"
+            app:stv_stroke_width="2dp"
+
+            tools:stv_state_drawable="@drawable/book"
+            tools:visibility="visible" />
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/_30sdp"
+            android:paddingRight="@dimen/_30sdp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <com.coorchice.library.SuperTextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="138.75dp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_gravity="center_horizontal"
+                app:stv_corner="20dp"
+                app:stv_drawableAsBackground="true"
+                app:stv_stroke_color="@color/opacity_8_gray_4c"
+                app:stv_stroke_width="2dp"
+                app:stv_isShowState="true"
+                app:stv_scaleType="fitCenter"
+                app:stv_state_drawable="@drawable/note" />
 
 
-</FrameLayout>
+            <com.coorchice.library.SuperTextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_height="138.75dp"
+                android:layout_gravity="center_horizontal"
+                app:stv_corner="20dp"
+                app:stv_stroke_color="@color/opacity_8_gray_4c"
+                app:stv_stroke_width="2dp"
+                app:stv_drawableAsBackground="true"
+                app:stv_isShowState="true"
+                app:stv_scaleType="fitCenter"
+                app:stv_state_drawable="@drawable/reminder" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

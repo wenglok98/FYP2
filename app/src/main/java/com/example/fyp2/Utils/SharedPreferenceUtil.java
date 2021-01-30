@@ -4,68 +4,53 @@ package com.example.fyp2.Utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.preference.PreferenceManager;
 
 
 import com.example.fyp2.BaseApp.AppContext;
 
 import java.util.ArrayList;
-
 public class SharedPreferenceUtil {
-    private static final String SHARED_NAME = "save";
 
-    public static void put(String key, Object value) {
-        SharedPreferences preference = AppContext.getAppContext().getSharedPreferences(SHARED_NAME, 0);
-        Editor editor = preference.edit();
-        if (value instanceof String) {
-            editor.putString(key, (String) value);
-        } else if (value instanceof Integer) {
-            editor.putInt(key, (Integer) value);
-        } else if (value instanceof Float) {
-            editor.putFloat(key, (Float) value);
-        } else if (value instanceof Boolean) {
-            editor.putBoolean(key, (Boolean) value);
-        }
+    /**
+     * Called to save supplied value in shared preferences against given key.
+     * @param context Context of caller activity
+     * @param key Key of value to save against
+     * @param value Value to save
+     */
+    public static void saveToPrefs(Context context, String key, String value) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        final SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(key,value);
         editor.commit();
     }
 
-    public static Object get(String key, Object defaultValue) {
-        SharedPreferences preference = AppContext.getAppContext().getSharedPreferences(SHARED_NAME, 0);
-        if (defaultValue instanceof String) {
-            return preference.getString(key, (String) defaultValue);
-        } else if (defaultValue instanceof Integer) {
-            return preference.getInt(key, (Integer) defaultValue);
-        } else if (defaultValue instanceof Float) {
-            return preference.getFloat(key, (Float) defaultValue);
-        } else if (defaultValue instanceof Boolean) {
-            return preference.getBoolean(key, (Boolean) defaultValue);
-        } else {
-//            return preference.get(key, (Object) defaultValue);
-            throw new RuntimeException("错误类型");
+    /**
+     * Called to retrieve required value from shared preferences, identified by given key.
+     * Default value will be returned of no value found or error occurred.
+     * @param context Context of caller activity
+     * @param key Key to find value against
+     * @param defaultValue Value to return if no data found against given key
+     * @return Return the value found against given key, default if not found or any error occurs
+     */
+    public static String getFromPrefs(Context context, String key, String defaultValue) {
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        try {
+            return sharedPrefs.getString(key, defaultValue);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return defaultValue;
         }
     }
-
-    public static void setArrayPrefs(String ArrayName, ArrayList<String>array, Context mContext){
-        SharedPreferences preferences = AppContext.getAppContext().getSharedPreferences(SHARED_NAME,0);
-        Editor editor = preferences.edit();
-        editor.putInt(ArrayName + "_size", array.size());
-        for (int i=0;i<array.size();i++)
-            editor.putString(ArrayName + "_" + i ,array.get(i));
-        editor.apply();
+    /**
+     *
+     * @param context Context of caller activity
+     * @param key Key to delete from SharedPreferences
+     */
+    public static void removeFromPrefs(Context context, String key) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        final SharedPreferences.Editor editor = prefs.edit();
+        editor.remove(key);
+        editor.commit();
     }
-
-    public static ArrayList<String> getArrayPrefs(String arrayName, Context mContext) {
-        SharedPreferences prefs = mContext.getSharedPreferences(SHARED_NAME, 0);
-        int size = prefs.getInt(arrayName + "_size", 0);
-        ArrayList<String> array = new ArrayList<>(size);
-        for(int i=0;i<size;i++)
-            array.add(prefs.getString(arrayName + "_" + i, null));
-        return array;
-    }
-
-    public static void clear() {
-        SharedPreferences preference = AppContext.getAppContext().getSharedPreferences(SHARED_NAME, 0);
-        Editor editor = preference.edit();
-        editor.clear().apply();
-    }
-
 }

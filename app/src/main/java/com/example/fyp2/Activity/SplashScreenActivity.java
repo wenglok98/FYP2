@@ -1,16 +1,16 @@
-package com.example.fyp2;
+package com.example.fyp2.Activity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 
+import com.example.fyp2.Activity.LoginActivity;
 import com.example.fyp2.BaseApp.AppManager;
 import com.example.fyp2.BaseApp.BaseActivity;
+import com.example.fyp2.R;
 
 import java.util.Locale;
 

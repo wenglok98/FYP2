@@ -1,40 +1,79 @@
-package com.example.fyp2;
+package com.example.fyp2.Activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
+import com.example.fyp2.BaseApp.BaseActivity;
+import com.example.fyp2.Fragment.ForecastFragment;
+import com.example.fyp2.Fragment.HomeFragment;
+import com.example.fyp2.MenuListFragment;
+import com.example.fyp2.Fragment.MessageFragment;
+import com.example.fyp2.R;
+import com.example.fyp2.Utils.SharedPreferenceUtil;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     private ViewPager mViewPager;
     private List<Fragment> fragmentList;
+
     private FlowingDrawer mDrawer;
     private NavigationTabStrip mCenterNavigationTabStrip;
+    FirebaseAuth fAuth;
+    FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+    String UID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        fAuth = FirebaseAuth.getInstance();
+        UID = fAuth.getCurrentUser().getUid();
+        SharedPreferenceUtil.saveToPrefs(getApplicationContext(), "UID", UID);
+
         initUI();
         setUI();
+        retrievename();
+    }
 
+    private void retrievename() {
+        DocumentReference documentReference = fStore.collection("Users").document(UID);
+        documentReference.addSnapshotListener(MainActivity.this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                if (value != null) {
+                    String name = value.getString("username").toString();
+//                    SharedPreferenceUtil.put("username", name);
+                    SharedPreferenceUtil.saveToPrefs(getApplicationContext(), "username", name);
+//                    SharedPreferences sharedPreferences = PreferenceManager
+//                            .getDefaultSharedPreferences(getApplicationContext());
+//                    SharedPreferences.Editor editor = sharedPreferences.edit();
+//                    editor.putString("username", name);
+//                    editor.apply();
+                }
+            }
+        });
     }
 
     private void initUI() {
@@ -141,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
 //        navigationTabStrip.setOnPageChangeListener(...);
 //        navigationTabStrip.setOnTabStripSelectedIndexListener(...);
     }
+
     protected void setupToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 

@@ -6,5 +6,10 @@
         <item>@string/forecast</item>
         <item>@string/message</item>
     </string-array>
+    <string-array name="loginignup">
+        <item>@string/login_top</item>
+        <item>@string/signup_top</item>
+
+    </string-array>
 
 </resources>

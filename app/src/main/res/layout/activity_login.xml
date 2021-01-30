@@ -1,124 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/loginbt_bg"
-    tools:context=".LoginActivity">
+    tools:context=".Activity.LoginActivity">
 
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/login_top"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_15sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
+    <com.gigamole.navigationtabstrip.NavigationTabStrip
+        android:id="@+id/nts_top"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="@dimen/_40sdp"
+        app:nts_active_color="@color/black"
+        app:nts_color="@color/black"
+        app:nts_corners_radius="1dp"
+        app:nts_inactive_color="#a1a1a1"
+        app:nts_size="15sp"
+        android:elevation="@dimen/_100sdp"
+        app:nts_titles="@array/loginignup"
+        app:nts_weight="3dp"/>
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vplogin"
+        android:elevation="@dimen/_50sdp"
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
-        android:text="Sign Up"
-        android:textSize="@dimen/_15sdp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/Viewlottie"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_200sdp"
-        app:layout_constraintBottom_toTopOf="@+id/logintextrl"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:lottie_autoPlay="true"
-        app:lottie_fileName="welcome.json"
-        app:lottie_loop="true"></com.airbnb.lottie.LottieAnimationView>
-
-    <RelativeLayout
-        android:id="@+id/logintextrl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingLeft="@dimen/_20sdp"
-        android:paddingRight="@dimen/_20sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.587">
+        android:layout_height="match_parent" />
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/usernametextinputlayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
 
-            >
-
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_username"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:fontFamily="sans-serif"
-
-                android:hint="@string/username"
-                android:inputType="number"
-                android:textSize="@dimen/_13sdp"
-                android:textStyle="italic" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Address Label -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/passwordlayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/usernametextinputlayout"
-
-            android:layout_marginTop="@dimen/_10sdp"
-
-            app:endIconMode="password_toggle">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:background="@android:color/transparent"
-                android:fontFamily="sans-serif"
-                android:hint="@string/password"
-                android:inputType="textPersonName"
-                android:textSize="@dimen/_13sdp"
-                android:textStyle="italic" />
-        </com.google.android.material.textfield.TextInputLayout>
-    </RelativeLayout>
-
-    <com.royrodriguez.transitionbutton.TransitionButton
-        android:id="@+id/transition_button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-
-        android:text="@string/login_bt"
-        android:textColor="#8c8c8c"
-        app:defaultColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logintextrl"
-        app:loaderColor="#a1a1a1" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

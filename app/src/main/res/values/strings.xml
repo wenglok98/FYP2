@@ -15,4 +15,7 @@
     <string name="password">Password</string>
     <string name="login_bt">Login</string>
     <string name="login_top"><b><u>Login</u></b></string>
+    <string name="signup_top"><b><u>Sign Up</u></b></string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="email">E-mail</string>
 </resources>
