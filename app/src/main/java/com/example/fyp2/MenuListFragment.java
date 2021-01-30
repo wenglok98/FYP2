@@ -42,7 +42,8 @@ View parview = vNavigation.getHeaderView(0);
         vNavigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
-                Toast.makeText(getActivity(),menuItem.getTitle(),Toast.LENGTH_SHORT).show();
+
+
                 return false;
             }
         }) ;

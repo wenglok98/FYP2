@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                Toast.makeText(MainActivity.this, Integer.toString(position), Toast.LENGTH_SHORT).show();
+
             }
 
             @Override

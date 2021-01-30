@@ -39,6 +39,7 @@ dependencies {
     implementation 'me.wangyuwei:ParticleView:1.0.4'
     implementation 'org.xutils:xutils:3.9.0'
     implementation files('libs\\gson-2.8.6.jar')
+    implementation 'com.airbnb.android:lottie:3.6.0'
     implementation 'com.royrodriguez:transitionbutton:0.2.0'
     implementation platform('com.google.firebase:firebase-bom:26.4.0')
     implementation 'com.google.firebase:firebase-analytics'
