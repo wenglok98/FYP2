@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.example.fyp2.R;
 
 public class ForecastFragment extends Fragment {
-TextView forecasttv;
+
     public ForecastFragment() {
         // Required empty public constructor
     }
@@ -30,8 +30,7 @@ TextView forecasttv;
         LayoutInflater lf = getActivity().getLayoutInflater();
         View view =  lf.inflate(R.layout.fragment_forecast, container, false);
 
-        forecasttv = view.findViewById(R.id.forecasttv);
-        forecasttv.setText("asdasdasd");
+
         return view;
     }
 }

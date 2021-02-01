@@ -7,6 +7,13 @@
     android:layout_height="match_parent"
     tools:context=".Fragment.MessageFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/Viewlottie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:lottie_fileName="2326-coming-soon.json"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        ></com.airbnb.lottie.LottieAnimationView>
 
 </FrameLayout>

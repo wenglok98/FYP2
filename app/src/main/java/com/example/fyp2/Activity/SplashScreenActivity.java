@@ -64,6 +64,6 @@ public class SplashScreenActivity extends BaseActivity {
         SharedPreferences prefs = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
         String language = prefs.getString("My_Lang", "");
         String lang2 = "zh";
-        setLocale(lang2);
+        setLocale("zh");
     }
 }
