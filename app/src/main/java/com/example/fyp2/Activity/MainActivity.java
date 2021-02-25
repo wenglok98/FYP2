@@ -42,6 +42,7 @@ public class MainActivity extends BaseActivity {
     FirebaseAuth fAuth;
     FirebaseFirestore fStore = FirebaseFirestore.getInstance();
     String UID;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,91 +78,121 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initUI() {
-        mDrawer = (FlowingDrawer) findViewById(R.id.drawerlayout);
-        mDrawer.setTouchMode(ElasticDrawer.TOUCH_MODE_BEZEL);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mDrawer = (FlowingDrawer) findViewById(R.id.drawerlayout);
+                mDrawer.setTouchMode(ElasticDrawer.TOUCH_MODE_BEZEL);
+            }
+        });
+
         setupToolbar();
         setupMenu();
-        mViewPager = (ViewPager) findViewById(R.id.vp);
-        mViewPager.setOffscreenPageLimit(3);
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        runOnUiThread(new Runnable() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                mViewPager.getAdapter().notifyDataSetChanged();
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
+            public void run() {
+                mViewPager = (ViewPager) findViewById(R.id.vp);
 
             }
         });
-        mCenterNavigationTabStrip = (NavigationTabStrip) findViewById(R.id.nts_center);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                mViewPager.setOffscreenPageLimit(3);
+                mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                    @Override
+                    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                    }
+
+                    @Override
+                    public void onPageSelected(int position) {
+                        mViewPager.getAdapter().notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onPageScrollStateChanged(int state) {
+
+                    }
+                });
+            }
+        }).start();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mCenterNavigationTabStrip = (NavigationTabStrip) findViewById(R.id.nts_center);
+
+            }
+        });
 
     }
 
     private void setUI() {
-        fragmentList = new ArrayList<Fragment>();
-        fragmentList.add(new HomeFragment());
-        fragmentList.add(new ForecastFragment());
-        fragmentList.add(new MessageFragment());
-
-        //为Viewpager设置Adapter
-        FragmentPagerAdapter fragmentPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
+        new Thread(new Runnable() {
             @Override
-            public Fragment getItem(int position) {
-                return fragmentList.get(position);
-            }
+            public void run() {
+                fragmentList = new ArrayList<Fragment>();
+                fragmentList.add(new HomeFragment());
+                fragmentList.add(new ForecastFragment());
+                fragmentList.add(new MessageFragment());
 
-            @Override
-            public int getCount() {
-                return fragmentList.size();
-            }
-        };
-        mViewPager.setAdapter(fragmentPagerAdapter);
+                //为Viewpager设置Adapter
+                FragmentPagerAdapter fragmentPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
+                    @Override
+                    public Fragment getItem(int position) {
+                        return fragmentList.get(position);
+                    }
 
-        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                    @Override
+                    public int getCount() {
+                        return fragmentList.size();
+                    }
+                };
+                mViewPager.setAdapter(fragmentPagerAdapter);
 
-            }
+                mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                    @Override
+                    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-            @Override
-            public void onPageSelected(int position) {
+                    }
+
+                    @Override
+                    public void onPageSelected(int position) {
 
 
-                mCenterNavigationTabStrip.setViewPager(mViewPager, position);
+                        mCenterNavigationTabStrip.setViewPager(mViewPager, position);
 //                mViewPager.setCurrentItem(position);
+                    }
+
+                    @Override
+                    public void onPageScrollStateChanged(int state) {
+
+                    }
+                });
+
+                mCenterNavigationTabStrip.setViewPager(mViewPager, 0);
+
+
+                mCenterNavigationTabStrip.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                    @Override
+                    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                    }
+
+                    @Override
+                    public void onPageSelected(int position) {
+
+                    }
+
+                    @Override
+                    public void onPageScrollStateChanged(int state) {
+
+                    }
+                });
             }
+        }).start();
 
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
-        mCenterNavigationTabStrip.setViewPager(mViewPager, 0);
-
-
-        mCenterNavigationTabStrip.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
 
 //        final NavigationTabStrip navigationTabStrip = (NavigationTabStrip) findViewById(R.id.nts);
 //        navigationTabStrip.setTitles("Nav", "Tab", "Strip");
@@ -182,25 +213,44 @@ public class MainActivity extends BaseActivity {
     }
 
     protected void setupToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-
-        toolbar.setNavigationIcon(R.drawable.ic_baseline_menu_24);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        runOnUiThread(new Runnable() {
             @Override
-            public void onClick(View v) {
-                mDrawer.toggleMenu();
+            public void run() {
+                toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+
+                toolbar.setNavigationIcon(R.drawable.ic_baseline_menu_24);
             }
         });
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mDrawer.toggleMenu();
+                    }
+                });
+            }
+        });
+
+
     }
 
     private void setupMenu() {
-        FragmentManager fm = getSupportFragmentManager();
-        MenuListFragment mMenuFragment = (MenuListFragment) fm.findFragmentById(R.id.id_container_menu);
-        if (mMenuFragment == null) {
-            mMenuFragment = new MenuListFragment();
-            fm.beginTransaction().add(R.id.id_container_menu, mMenuFragment).commit();
-        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                FragmentManager fm = getSupportFragmentManager();
+                MenuListFragment mMenuFragment = (MenuListFragment) fm.findFragmentById(R.id.id_container_menu);
+                if (mMenuFragment == null) {
+                    mMenuFragment = new MenuListFragment();
+                    fm.beginTransaction().add(R.id.id_container_menu, mMenuFragment).commit();
+                }
+            }
+        }).start();
+
 
 //        mDrawer.setOnDrawerStateChangeListener(new ElasticDrawer.OnDrawerStateChangeListener() {
 //            @Override

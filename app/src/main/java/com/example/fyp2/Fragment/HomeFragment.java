@@ -14,6 +14,8 @@ import com.coorchice.library.SuperTextView;
 import com.coorchice.library.gifdecoder.GifDrawable;
 import com.coorchice.library.utils.STVUtils;
 import com.coorchice.library.utils.ThreadPool;
+import com.example.fyp2.Activity.NotesActivity;
+import com.example.fyp2.BaseApp.AppManager;
 import com.example.fyp2.R;
 import com.fujiyuu75.sequent.Sequent;
 import com.github.mikephil.charting.animation.Easing;
@@ -29,6 +31,7 @@ import java.util.ArrayList;
 public class HomeFragment extends Fragment {
 
     private SuperTextView stv_4;
+    private SuperTextView notebt;
     private LinearLayout ll;
     PieChart pieChart;
 
@@ -48,20 +51,47 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         LayoutInflater lf = getActivity().getLayoutInflater();
         View view = lf.inflate(R.layout.fragment_home, container, false);
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                stv_4 = (SuperTextView) view.findViewById(R.id.stv_4);
+                ll = view.findViewById(R.id.homell);
+                notebt = (SuperTextView)view.findViewById(R.id.notesbt);
+                pieChart = view.findViewById(R.id.piechart);
+            }
+        });
 
-        stv_4 = (SuperTextView) view.findViewById(R.id.stv_4);
-        ll = view.findViewById(R.id.homell);
-        pieChart = view.findViewById(R.id.piechart);
         initPie();
-        byte[] resBytes = STVUtils.getResBytes(getContext(), R.drawable.book);
-        final GifDrawable gifDrawable = GifDrawable.createDrawable(resBytes);
-        stv_4.setVisibility(View.VISIBLE);
-        stv_4.setDrawable(gifDrawable);
+notebt.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                AppManager.getAppManager().ToOtherActivity(NotesActivity.class);
+            }
+        }).start();
+    }
+});
+
+
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                byte[] resBytes = STVUtils.getResBytes(getContext(), R.drawable.book);
+                final GifDrawable gifDrawable = GifDrawable.createDrawable(resBytes);
+                stv_4.setVisibility(View.VISIBLE);
+                stv_4.setDrawable(gifDrawable);
+            }
+        });
+
 
         return view;
     }
 
     private void initPie() {
+
         pieChart.setUsePercentValues(true);
         pieChart.setExtraOffsets(5, 10, 5, 5);
 
@@ -88,6 +118,12 @@ public class HomeFragment extends Fragment {
         data.setValueTextSize(10f);
         data.setValueTextColor(Color.YELLOW);
 
-        pieChart.setData(data);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                pieChart.setData(data);
+
+            }
+        }).start();
     }
 }

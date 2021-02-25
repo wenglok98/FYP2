@@ -17,11 +17,12 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textStyle="bold"
+            android:text="Time Spent on Each Subject"
             android:textAlignment="center"
+            android:textColor="@color/black"
             android:textSize="@dimen/_20sdp"
-            android:text="Time Spent on Each Subject"/>
+            android:textStyle="bold" />
+
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/piechart"
             android:layout_width="match_parent"
@@ -50,43 +51,44 @@
             tools:visibility="visible" />
 
         <LinearLayout
-            android:layout_marginTop="@dimen/_20sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/_30sdp"
-            android:paddingRight="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_20sdp"
             android:layout_marginBottom="@dimen/_30sdp"
             android:orientation="horizontal"
+            android:paddingLeft="@dimen/_30sdp"
+            android:paddingRight="@dimen/_30sdp"
             android:weightSum="2">
 
             <com.coorchice.library.SuperTextView
+                android:id="@+id/notesbt"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="138.75dp"
-                android:layout_marginRight="@dimen/_10sdp"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_weight="1"
                 app:stv_corner="20dp"
                 app:stv_drawableAsBackground="true"
-                app:stv_stroke_color="@color/opacity_8_gray_4c"
-                app:stv_stroke_width="2dp"
                 app:stv_isShowState="true"
                 app:stv_scaleType="fitCenter"
-                app:stv_state_drawable="@drawable/note" />
+                app:stv_state_drawable="@drawable/note"
+                app:stv_stroke_color="@color/opacity_8_gray_4c"
+                app:stv_stroke_width="2dp" />
 
 
             <com.coorchice.library.SuperTextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_height="138.75dp"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_weight="1"
                 app:stv_corner="20dp"
-                app:stv_stroke_color="@color/opacity_8_gray_4c"
-                app:stv_stroke_width="2dp"
                 app:stv_drawableAsBackground="true"
                 app:stv_isShowState="true"
                 app:stv_scaleType="fitCenter"
-                app:stv_state_drawable="@drawable/reminder" />
+                app:stv_state_drawable="@drawable/reminder"
+                app:stv_stroke_color="@color/opacity_8_gray_4c"
+                app:stv_stroke_width="2dp" />
         </LinearLayout>
 
     </LinearLayout>
