@@ -49,7 +49,12 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         fAuth = FirebaseAuth.getInstance();
+
+        //Re-enabled
         UID = fAuth.getCurrentUser().getUid();
+//
+//        UID = "Testing ID";
+
         SharedPreferenceUtil.saveToPrefs(getApplicationContext(), "UID", UID);
 
         initUI();
@@ -64,7 +69,15 @@ public class MainActivity extends BaseActivity {
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
                 if (value != null) {
+                    //Re=enabled
                     String name = value.getString("username").toString();
+
+                    //Offline Mode
+
+//                    String name = "Testing Name";
+
+
+
 //                    SharedPreferenceUtil.put("username", name);
                     SharedPreferenceUtil.saveToPrefs(getApplicationContext(), "username", name);
 //                    SharedPreferences sharedPreferences = PreferenceManager

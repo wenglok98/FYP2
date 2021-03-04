@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.fyp2.Activity.LoginActivity;
 import com.example.fyp2.BaseApp.AppManager;
@@ -47,7 +48,7 @@ public class MenuListFragment extends Fragment {
 //        SharedPreferences sharedPreferences = PreferenceManager
 //                .getDefaultSharedPreferences(getContext());
 //        String name = sharedPreferences.getString("username", "");
-      String name =  SharedPreferenceUtil.getFromPrefs(getContext(),"username","");
+        String name = SharedPreferenceUtil.getFromPrefs(getContext(), "username", "");
         drawerNameView.setText(name);
         ivMenuUserProfilePhoto = (ImageView) parview.findViewById(R.id.ivMenuUserProfilePhoto);
 //        ivMenuUserProfilePhoto.setImageDrawable(getResources().getDrawable(R.mipmap.ic_launcher));
@@ -64,8 +65,14 @@ public class MenuListFragment extends Fragment {
                         getActivity().finishAffinity();
                         break;
 
+                    case (R.id.Profile):
+                        Toast.makeText(getContext(), "Profile Clkicked", Toast.LENGTH_SHORT).show();
+                        
+
+
 
                 }
+
 
                 return false;
             }

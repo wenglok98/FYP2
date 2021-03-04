@@ -16,6 +16,7 @@ import com.coorchice.library.utils.STVUtils;
 import com.coorchice.library.utils.ThreadPool;
 import com.example.fyp2.Activity.NotesActivity;
 import com.example.fyp2.BaseApp.AppManager;
+import com.example.fyp2.NotesListActivity;
 import com.example.fyp2.R;
 import com.fujiyuu75.sequent.Sequent;
 import com.github.mikephil.charting.animation.Easing;
@@ -56,24 +57,24 @@ public class HomeFragment extends Fragment {
             public void run() {
                 stv_4 = (SuperTextView) view.findViewById(R.id.stv_4);
                 ll = view.findViewById(R.id.homell);
-                notebt = (SuperTextView)view.findViewById(R.id.notesbt);
+                notebt = (SuperTextView) view.findViewById(R.id.notesbt);
                 pieChart = view.findViewById(R.id.piechart);
             }
         });
 
         initPie();
-notebt.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        new Thread(new Runnable() {
+        notebt.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
+            public void onClick(View v) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
 
-                AppManager.getAppManager().ToOtherActivity(NotesActivity.class);
+                        AppManager.getAppManager().ToOtherActivity(NotesListActivity.class);
+                    }
+                }).start();
             }
-        }).start();
-    }
-});
+        });
 
 
         getActivity().runOnUiThread(new Runnable() {

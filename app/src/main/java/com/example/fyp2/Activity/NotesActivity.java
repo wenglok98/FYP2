@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fyp2.R;
+import com.example.fyp2.Utils.Util;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -40,7 +41,17 @@ public class NotesActivity extends AppCompatActivity {
         tv = findViewById(R.id.txview);
         capture = findViewById(R.id.cpbt);
         detect = findViewById(R.id.detectbt);
+        initAppTitle();
 
+
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+
+
+//        imageBitmap = (Bitmap) bundle.get("images");
+
+//        im.setImageBitmap(imageBitmap);
 
         capture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,5 +108,18 @@ public class NotesActivity extends AppCompatActivity {
                                 Toast.makeText(NotesActivity.this, "Failed", Toast.LENGTH_SHORT).show();
                             }
                         });
+    }
+    private void initAppTitle() {
+        ((TextView) findViewById(R.id.app_title_tv)).setText("Confirm Image");
+        findViewById(R.id.btn_back).setVisibility(View.VISIBLE);
+        findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+
+
     }
 }
