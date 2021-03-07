@@ -3,6 +3,7 @@ package com.example.fyp2;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -15,6 +16,9 @@ import android.widget.Toast;
 import com.example.fyp2.Activity.NotesActivity;
 import com.example.fyp2.BaseApp.AppManager;
 import com.example.fyp2.BaseApp.BaseActivity;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 
 public class NotesListActivity extends BaseActivity {
 
@@ -83,8 +87,18 @@ public class NotesListActivity extends BaseActivity {
 
             Intent intent = new Intent(NotesListActivity.this, NotesActivity.class);
             Bundle extras = data.getExtras();
+            imageBitmap = (Bitmap) extras.get("data");
+            String filename = "bitmap.png";
+            FileOutputStream stream = null;
+            try {
+                stream = this.openFileOutput(filename, Context.MODE_PRIVATE);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
 
-            intent.putExtra("images", extras);
+
+            intent.putExtra("image", filename);
             startActivity(intent);
 //            AppManager.getAppManager().ToOtherActivity(NotesActivity.class);
 //            imageBitmap = (Bitmap) extras.get("data");

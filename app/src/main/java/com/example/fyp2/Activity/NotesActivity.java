@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -24,13 +25,16 @@ import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.text.FirebaseVisionText;
 import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
 
+
+import java.io.FileInputStream;
+
 public class NotesActivity extends AppCompatActivity {
 
     ImageView im;
     TextView tv;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     Bitmap imageBitmap;
-
+    Bitmap bmp = null;
     Button capture, detect;
 
     @Override
@@ -44,21 +48,26 @@ public class NotesActivity extends AppCompatActivity {
         initAppTitle();
 
 
-
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
+        String filename = getIntent().getStringExtra("image");
+        try {
+            FileInputStream is = this.openFileInput(filename);
+            bmp = BitmapFactory.decodeStream(is);
+            is.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        im.setImageBitmap(bmp);
 
 //        imageBitmap = (Bitmap) bundle.get("images");
 
 //        im.setImageBitmap(imageBitmap);
 
-        capture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dispatchTakePictureIntent();
-            }
-        });
+
 
         detect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,29 +76,9 @@ public class NotesActivity extends AppCompatActivity {
             }
         });
     }
-
-    private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        try {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-        } catch (ActivityNotFoundException e) {
-            // display error state to the user
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            imageBitmap = (Bitmap) extras.get("data");
-            im.setImageBitmap(imageBitmap);
-        }
-    }
-
     private void detectTextfromimage() {
 
-        FirebaseVisionImage firebaseVisionImage = FirebaseVisionImage.fromBitmap(imageBitmap);
+        FirebaseVisionImage firebaseVisionImage = FirebaseVisionImage.fromBitmap(bmp);
 
 
         FirebaseVisionTextRecognizer detector = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
@@ -99,7 +88,11 @@ public class NotesActivity extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
                             @Override
                             public void onSuccess(FirebaseVisionText firebaseVisionText) {
-                                tv.setText(firebaseVisionText.getText());
+                                Intent intent = new Intent(NotesActivity.this, NotesOpen.class);
+
+
+                                intent.putExtra("notes", firebaseVisionText.getText());
+                                startActivity(intent);
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -109,6 +102,7 @@ public class NotesActivity extends AppCompatActivity {
                             }
                         });
     }
+
     private void initAppTitle() {
         ((TextView) findViewById(R.id.app_title_tv)).setText("Confirm Image");
         findViewById(R.id.btn_back).setVisibility(View.VISIBLE);
@@ -118,7 +112,6 @@ public class NotesActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
 
 
     }
