@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.example.fyp2.Activity.MainActivity;
 import com.example.fyp2.R;
+import com.example.fyp2.Utils.SharedPreferenceUtil;
 import com.example.fyp2.Utils.Util;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -22,6 +23,9 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.royrodriguez.transitionbutton.TransitionButton;
 
 public class LoginFragment extends Fragment {
@@ -29,7 +33,8 @@ public class LoginFragment extends Fragment {
     private FirebaseAuth fAuth;
     private TextInputEditText username, password;
     private TextInputLayout usernameLayout, passwordLayout;
-
+    String UID;
+    FirebaseFirestore fStore = FirebaseFirestore.getInstance();
     public LoginFragment() {
         // Required empty public constructor
     }
@@ -48,6 +53,9 @@ public class LoginFragment extends Fragment {
         LayoutInflater lf = getActivity().getLayoutInflater();
         View view = lf.inflate(R.layout.fragment_login, container, false);
         fAuth = FirebaseAuth.getInstance();
+
+
+        //Re-enabled
 
         transitionButton = view.findViewById(R.id.transition_button);
         username = view.findViewById(R.id.edt_username);
@@ -92,9 +100,12 @@ public class LoginFragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+                    UID = fAuth.getCurrentUser().getUid();
+                    retrievename();
                     transitionButton.stopAnimation(TransitionButton.StopAnimationStyle.EXPAND, new TransitionButton.OnAnimationStopEndListener() {
                         @Override
                         public void onAnimationStopEnd() {
+
                             Intent intent = new Intent(getContext(), MainActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                             startActivity(intent);
@@ -109,5 +120,18 @@ public class LoginFragment extends Fragment {
                 }
             }
         });
+    }
+    private void retrievename() {
+        DocumentReference documentReference = fStore.collection("Users").document(UID);
+        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                String name = task.getResult().getString("username").toString();
+                SharedPreferenceUtil.saveToPrefs(getContext(), "username", name);
+
+            }
+        });
+
     }
 }

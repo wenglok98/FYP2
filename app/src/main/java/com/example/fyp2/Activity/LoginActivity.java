@@ -1,5 +1,6 @@
 package com.example.fyp2.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -15,8 +16,14 @@ import com.example.fyp2.Fragment.LoginFragment;
 import com.example.fyp2.Fragment.MessageFragment;
 import com.example.fyp2.Fragment.RegisterFragment;
 import com.example.fyp2.R;
+import com.example.fyp2.Utils.SharedPreferenceUtil;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +31,9 @@ import java.util.List;
 public class LoginActivity extends BaseActivity {
     private ViewPager mViewPager;
     private List<Fragment> fragmentList;
+    String UID;
     FirebaseAuth fAuth;
-
+    FirebaseFirestore fStore = FirebaseFirestore.getInstance();
     private NavigationTabStrip mTopNavigationTabStrip;
 
 
@@ -125,4 +133,8 @@ public class LoginActivity extends BaseActivity {
         });
 
     }
+
+
+
+
 }

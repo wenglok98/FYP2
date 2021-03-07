@@ -52,15 +52,11 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         LayoutInflater lf = getActivity().getLayoutInflater();
         View view = lf.inflate(R.layout.fragment_home, container, false);
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
+
                 stv_4 = (SuperTextView) view.findViewById(R.id.stv_4);
                 ll = view.findViewById(R.id.homell);
                 notebt = (SuperTextView) view.findViewById(R.id.notesbt);
                 pieChart = view.findViewById(R.id.piechart);
-            }
-        });
 
         initPie();
         notebt.setOnClickListener(new View.OnClickListener() {

@@ -13,7 +13,7 @@
         android:id="@+id/btn_back"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/_30sdp"
-        android:padding="9dp"
+        android:padding="@dimen/_9sdp"
         android:src="@mipmap/back_jiantou"
         android:tint="?attr/colorControlNormal"
 

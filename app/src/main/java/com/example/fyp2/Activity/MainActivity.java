@@ -1,5 +1,6 @@
 package com.example.fyp2.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -21,6 +22,8 @@ import com.example.fyp2.Fragment.MessageFragment;
 import com.example.fyp2.R;
 import com.example.fyp2.Utils.SharedPreferenceUtil;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -59,36 +62,9 @@ public class MainActivity extends BaseActivity {
 
         initUI();
         setUI();
-        retrievename();
+
     }
 
-    private void retrievename() {
-        DocumentReference documentReference = fStore.collection("Users").document(UID);
-        documentReference.addSnapshotListener(MainActivity.this, new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-
-                if (value != null) {
-                    //Re=enabled
-                    String name = value.getString("username").toString();
-
-                    //Offline Mode
-
-//                    String name = "Testing Name";
-
-
-
-//                    SharedPreferenceUtil.put("username", name);
-                    SharedPreferenceUtil.saveToPrefs(getApplicationContext(), "username", name);
-//                    SharedPreferences sharedPreferences = PreferenceManager
-//                            .getDefaultSharedPreferences(getApplicationContext());
-//                    SharedPreferences.Editor editor = sharedPreferences.edit();
-//                    editor.putString("username", name);
-//                    editor.apply();
-                }
-            }
-        });
-    }
 
     private void initUI() {
         runOnUiThread(new Runnable() {
@@ -246,7 +222,7 @@ public class MainActivity extends BaseActivity {
                     }
                 });
             }
-        });
+        }).start();
 
 
     }
@@ -259,6 +235,7 @@ public class MainActivity extends BaseActivity {
                 MenuListFragment mMenuFragment = (MenuListFragment) fm.findFragmentById(R.id.id_container_menu);
                 if (mMenuFragment == null) {
                     mMenuFragment = new MenuListFragment();
+
                     fm.beginTransaction().add(R.id.id_container_menu, mMenuFragment).commit();
                 }
             }

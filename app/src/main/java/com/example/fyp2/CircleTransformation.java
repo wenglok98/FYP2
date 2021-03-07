@@ -9,7 +9,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 
 
-class CircleTransformation implements Transformation {
+public class CircleTransformation implements Transformation {
 
     private static final int STROKE_WIDTH = 6;
 
