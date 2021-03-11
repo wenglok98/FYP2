@@ -7,6 +7,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.fyp2.R;
 import com.example.fyp2.Utils.Util;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -27,6 +29,7 @@ import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
 
 
 import java.io.FileInputStream;
+import java.io.IOException;
 
 public class NotesActivity extends AppCompatActivity {
 
@@ -36,6 +39,7 @@ public class NotesActivity extends AppCompatActivity {
     Bitmap imageBitmap;
     Bitmap bmp = null;
     Button capture, detect;
+    Uri uri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,18 +55,27 @@ public class NotesActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
+
+
         String filename = getIntent().getStringExtra("image");
+        uri = Uri.parse(filename);
         try {
-            FileInputStream is = this.openFileInput(filename);
-            bmp = BitmapFactory.decodeStream(is);
-            is.close();
-        } catch (Exception e) {
+            imageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
+//        try {
+//            FileInputStream is = this.openFileInput(filename);
+//            bmp = BitmapFactory.decodeStream(is);
+//            is.close();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
-        im.setImageBitmap(bmp);
+//        im.setImageBitmap(bmp);
 
+        Glide.with(getApplicationContext()).load(imageBitmap).into(im);
 //        imageBitmap = (Bitmap) bundle.get("images");
 
 //        im.setImageBitmap(imageBitmap);
@@ -78,7 +91,7 @@ public class NotesActivity extends AppCompatActivity {
     }
     private void detectTextfromimage() {
 
-        FirebaseVisionImage firebaseVisionImage = FirebaseVisionImage.fromBitmap(bmp);
+        FirebaseVisionImage firebaseVisionImage = FirebaseVisionImage.fromBitmap(imageBitmap);
 
 
         FirebaseVisionTextRecognizer detector = FirebaseVision.getInstance().getOnDeviceTextRecognizer();

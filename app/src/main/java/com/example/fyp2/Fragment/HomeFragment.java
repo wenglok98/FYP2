@@ -1,6 +1,7 @@
 package com.example.fyp2.Fragment;
 
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -82,6 +83,8 @@ public class HomeFragment extends Fragment {
                 stv_4.setDrawable(gifDrawable);
             }
         });
+
+
 
 
         return view;

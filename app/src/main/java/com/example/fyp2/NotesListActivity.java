@@ -6,6 +6,8 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -17,15 +19,20 @@ import com.example.fyp2.Activity.NotesActivity;
 import com.example.fyp2.BaseApp.AppManager;
 import com.example.fyp2.BaseApp.BaseActivity;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+
+import cc.solart.wave.WaveSideBarView;
 
 public class NotesListActivity extends BaseActivity {
 
     ImageView btn_capture;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     Bitmap imageBitmap;
+    Uri uri2;
 
+    Bitmap srcbmp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,22 +94,41 @@ public class NotesListActivity extends BaseActivity {
 
             Intent intent = new Intent(NotesListActivity.this, NotesActivity.class);
             Bundle extras = data.getExtras();
-            imageBitmap = (Bitmap) extras.get("data");
-            String filename = "bitmap.png";
-            FileOutputStream stream = null;
+            String asdasd = data.getDataString();
+            Uri sdfasdf = data.getData();
+//            imageBitmap = (Bitmap) extras.get("data");
+         imageBitmap = (Bitmap) extras.get("data");
+         uri2 = getImageUri(NotesListActivity.this,imageBitmap);
+
             try {
-                stream = this.openFileOutput(filename, Context.MODE_PRIVATE);
+                srcbmp = BitmapFactory.decodeStream(NotesListActivity.this.getContentResolver().openInputStream(uri2), null, null);
+
+//            srcbmp  = BitmapFactory.decodeStream(this.getContentResolver().openInputStream(uri2),null,null);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            Uri tempUri = getImageUri(getApplicationContext(),srcbmp);
+//            String filename = "bitmap.png";
+//            FileOutputStream stream = null;
+//            try {
+//                stream = this.openFileOutput(filename, Context.MODE_PRIVATE);
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            }
+//            imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
 
 
-            intent.putExtra("image", filename);
+            intent.putExtra("image", tempUri.toString());
             startActivity(intent);
 //            AppManager.getAppManager().ToOtherActivity(NotesActivity.class);
 //            imageBitmap = (Bitmap) extras.get("data");
 //            im.setImageBitmap(imageBitmap);
         }
+    }
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
     }
 }

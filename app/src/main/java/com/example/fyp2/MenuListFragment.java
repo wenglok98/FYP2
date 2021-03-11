@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.fyp2.Activity.EnrollNewSubject;
 import com.example.fyp2.Activity.LoginActivity;
 import com.example.fyp2.Activity.ProfileActivity;
 import com.example.fyp2.BaseApp.AppManager;
@@ -37,7 +38,8 @@ public class MenuListFragment extends Fragment {
     FirebaseAuth fAuth;
     FirebaseStorage storage;
     StorageReference storageReference;
-    String UID="";
+    String UID = "";
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,9 +82,11 @@ public class MenuListFragment extends Fragment {
 
                     case (R.id.Profile):
                         AppManager.getAppManager().ToOtherActivity(ProfileActivity.class);
-                        
+                        break;
 
-
+                    case (R.id.Enrollment):
+                        AppManager.getAppManager().ToOtherActivity(EnrollNewSubject.class);
+                        break;
 
                 }
 

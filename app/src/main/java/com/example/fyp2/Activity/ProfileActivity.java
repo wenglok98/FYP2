@@ -22,6 +22,7 @@ import com.example.fyp2.CircleTransformation;
 import com.example.fyp2.Class.UsersClass;
 import com.example.fyp2.R;
 import com.example.fyp2.Utils.SharedPreferenceUtil;
+import com.example.fyp2.Utils.SnackUtil;
 import com.example.fyp2.databinding.ActivityProfileBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -44,8 +45,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     ActivityProfileBinding profileBinding;
     Animation midtoleft, midtoright, lefttomid, righttomid;
-    FirebaseAuth fAuth;
+
     String UID;
+    FirebaseAuth fAuth;
     FirebaseFirestore fStore = FirebaseFirestore.getInstance();
     String name = "";
     String id = "";
@@ -168,7 +170,8 @@ public class ProfileActivity extends AppCompatActivity {
                 documentReference.set(newReg).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        Snackbar.make(getCurrentFocus(), "Personal Information Updated Successfully ! ", BaseTransientBottomBar.LENGTH_SHORT).show();
+                        SnackUtil.show(ProfileActivity.this,"Personal Information Updated Successfully ! ");
+//                        Snackbar.make(getCurrentFocus(), "Personal Information Updated Successfully ! ", BaseTransientBottomBar.LENGTH_SHORT).show();
                         SharedPreferenceUtil.saveToPrefs(getApplicationContext(), "username", name);
                         SharedPreferenceUtil.saveToPrefs(getApplicationContext(), "userStuid", id);
                         SharedPreferenceUtil.saveToPrefs(getApplicationContext(), "userPhone", phone);
@@ -221,7 +224,7 @@ public class ProfileActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Snackbar.make(getCurrentFocus(),"Profile Picture Retrieve Failed !", BaseTransientBottomBar.LENGTH_SHORT).show();
+//                Snackbar.make(getCurrentFocus(),"Profile Picture Retrieve Failed !", BaseTransientBottomBar.LENGTH_SHORT).show();
             }
         });
 
