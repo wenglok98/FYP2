@@ -27,29 +27,25 @@ public class SubjectListRepositories {
         return instance;
     }
 
-//    public MutableLiveData<ArrayList<SubjectClassModel>> getSubjectList(){
-//
-//
-//
-//    }
-
-    private void retrieveFromFirebase(){
-        Task<QuerySnapshot> documentReference = fStore.collection("Subjects").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-           for (QueryDocumentSnapshot documentSnapshot: queryDocumentSnapshots)
-           {
-               SubjectClassModel tempSub = new SubjectClassModel();
-               tempSub.setSubjectImage(documentSnapshot.get("subjectCode").toString());
-               tempSub.setSubjectName(documentSnapshot.get("subjectName").toString());
-               tempSub.setSubjectCode(documentSnapshot.get("subjectCode").toString());
-               dataSet.add(tempSub);
-           }
-            }
-        });
+    public MutableLiveData<ArrayList<SubjectClassModel>> getSubjectList() {
 
 
 
+        MutableLiveData<ArrayList<SubjectClassModel>> data = new MutableLiveData<>();
+        data.setValue(dataSet);
+        return data;
+
+
+    }
+
+    private void retrieveFromFirebase() {
+
+
+    }
+
+    interface callback{
+
+        MutableLiveData<ArrayList<SubjectClassModel>> awakeData();
     }
 
 }

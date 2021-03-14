@@ -4,11 +4,14 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.fyp2.Class.SubjectClassModel;
 
 import java.util.ArrayList;
@@ -38,16 +41,24 @@ public class SubjectListAdapter extends RecyclerView.Adapter<SubjectListAdapter.
 
         holder.tv_name.setText(sb.getSubjectName());
         holder.tv_code.setText(sb.getSubjectCode());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Test", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return subjectListAdapterArrayList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView tv_name, tv_code;
+        private ImageView im_subject;
 
 
         public MyViewHolder(@NonNull View itemView) {
@@ -55,13 +66,15 @@ public class SubjectListAdapter extends RecyclerView.Adapter<SubjectListAdapter.
 
             tv_code = itemView.findViewById(R.id.tv_subjectcode);
             tv_name = itemView.findViewById(R.id.tv_subjectname);
-
+            im_subject = itemView.findViewById(R.id.locsymbol);
 
         }
     }
-    public int getLetterPosition(String letter){
-        for (int i = 0 ; i < subjectListAdapterArrayList.size(); i++){
-            if(subjectListAdapterArrayList.get(i).getSubjectCode().equals(letter) ){
+
+    public int getLetterPosition(String letter) {
+        for (int i = 0; i < subjectListAdapterArrayList.size(); i++) {
+            if (String.valueOf(subjectListAdapterArrayList.get(i).getSubjectName().charAt(0)).toLowerCase().
+                    equals(letter.toLowerCase())) {
                 return i;
             }
         }

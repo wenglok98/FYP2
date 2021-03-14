@@ -1,7 +1,36 @@
 package com.example.fyp2.Class;
 
 public class SubjectClassModel {
-    String subjectImage,subjectCode,subjectName;
+    String subjectImage;
+    String subjectCode;
+    String subjectName;
+    String subjectType;
+
+    public String getSubjectType() {
+        return subjectType;
+    }
+
+    public void setSubjectType(String subjectType) {
+        this.subjectType = subjectType;
+    }
+
+    public String getSubjectPeople() {
+        return subjectPeople;
+    }
+
+    public void setSubjectPeople(String subjectPeople) {
+        this.subjectPeople = subjectPeople;
+    }
+
+    public SubjectClassModel(String subjectImage, String subjectCode, String subjectName, String subjectType, String subjectPeople) {
+        this.subjectImage = subjectImage;
+        this.subjectCode = subjectCode;
+        this.subjectName = subjectName;
+        this.subjectType = subjectType;
+        this.subjectPeople = subjectPeople;
+    }
+
+    String subjectPeople;
 
     public String getSubjectImage() {
         return subjectImage;

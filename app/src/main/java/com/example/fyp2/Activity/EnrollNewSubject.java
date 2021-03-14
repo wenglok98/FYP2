@@ -1,5 +1,6 @@
 package com.example.fyp2.Activity;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
@@ -7,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -26,6 +28,9 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import cc.solart.wave.WaveSideBarView;
@@ -52,28 +57,50 @@ public class EnrollNewSubject extends AppCompatActivity {
 
         fAuth = FirebaseAuth.getInstance();
         UID = fAuth.getCurrentUser().getUid();
-
-
-        enrollSubjectViewModel = new ViewModelProvider(EnrollNewSubject.this, factory).get(EnrollSubjectViewModel.class);
-        enrollSubjectViewModel.getSubjectList().observe(this, new Observer<List<SubjectClassModel>>() {
-            @Override
-            public void onChanged(List<SubjectClassModel> subjectClassModels) {
-                adapter.notifyDataSetChanged();
-            }
-        });
-
         initAppTitle();
-        initAdapter();
 
+//
+//        enrollSubjectViewModel = new ViewModelProvider(EnrollNewSubject.this, factory).get(EnrollSubjectViewModel.class);
+//
+//        enrollSubjectViewModel.init();
+//        enrollSubjectViewModel.getSubjectList().observe(this, new Observer<List<SubjectClassModel>>() {
+//            @Override
+//            public void onChanged(List<SubjectClassModel> subjectClassModels) {
+//                adapter.notifyDataSetChanged();
+//            }
+//        });
+
+        initAdapter();
 
 
     }
 
     private void initAdapter() {
 
-        adapter = new SubjectListAdapter(EnrollNewSubject.this, enrollSubjectViewModel.getSubjectList().getValue());
-        activityEnrollNewSubjectBinding.subjectRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new SubjectListAdapter(EnrollNewSubject.this, dataSet);
+        activityEnrollNewSubjectBinding.subjectRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         activityEnrollNewSubjectBinding.subjectRecyclerView.setAdapter(adapter);
+
+        Task<QuerySnapshot> documentReference = fStore.collection("Subjects").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+
+                    SubjectClassModel tempSub = new SubjectClassModel();
+                    tempSub.setSubjectImage(documentSnapshot.get("subjectCode").toString());
+                    tempSub.setSubjectName(documentSnapshot.get("subjectName").toString());
+                    tempSub.setSubjectCode(documentSnapshot.get("subjectCode").toString());
+                    dataSet.add(tempSub);
+
+                }
+                dataSet.sort(Comparator.comparing(a -> a.getSubjectName()));
+                adapter.notifyDataSetChanged();
+
+            }
+
+
+        });
 
 
         activityEnrollNewSubjectBinding.sideView.setOnTouchLetterChangeListener(new WaveSideBarView.OnTouchLetterChangeListener() {
@@ -102,11 +129,9 @@ public class EnrollNewSubject extends AppCompatActivity {
         });
 
 
-
-
     }
 
-    private void adddata(){
+    private void adddata() {
 
         DocumentReference documentReference = fStore.collection("Subjects").document();
         DocumentReference documentReference2 = fStore.collection("Subjects").document();
@@ -115,13 +140,13 @@ public class EnrollNewSubject extends AppCompatActivity {
         DocumentReference documentReference5 = fStore.collection("Subjects").document();
         DocumentReference documentReference6 = fStore.collection("Subjects").document();
         DocumentReference documentReference7 = fStore.collection("Subjects").document();
-        SubjectClassModel newSub = new SubjectClassModel("asdf","UCCD1234","MULTIMEDIA INTRODUCTION");
-        SubjectClassModel newSub2 = new SubjectClassModel("asdf","UCCD1022","CYBERSECURITY INTRODUCTION");
-        SubjectClassModel newSub3 = new SubjectClassModel("asdf","UCCD1045","INTERNET INTRODUCTION");
-        SubjectClassModel newSub4 = new SubjectClassModel("asdf","UCCD1232","SOFTWARE INTRODUCTION");
-        SubjectClassModel newSub5 = new SubjectClassModel("asdf","UCCD1634","HARDWARE INTRODUCTION");
-        SubjectClassModel newSub6 = new SubjectClassModel("asdf","UCCD1534","IPC INTRODUCTION");
-        SubjectClassModel newSub7 = new SubjectClassModel("asdf","UCCD1334","UI/UX INTRODUCTION");
+        SubjectClassModel newSub = new SubjectClassModel("asdf", "UCCD1234", "CHINESE");
+        SubjectClassModel newSub2 = new SubjectClassModel("asdf", "UCCD1422", "Bahasa Melayu");
+        SubjectClassModel newSub3 = new SubjectClassModel("asdf", "UCCD1085", "Maths");
+        SubjectClassModel newSub4 = new SubjectClassModel("asdf", "UCCD17232", "Science");
+        SubjectClassModel newSub5 = new SubjectClassModel("asdf", "UCCD168934", "Physics");
+        SubjectClassModel newSub6 = new SubjectClassModel("asdf", "UCCD159834", "Chemist");
+        SubjectClassModel newSub7 = new SubjectClassModel("asdf", "UCCD177334", "Biology");
         documentReference.set(newSub);
         documentReference2.set(newSub2);
         documentReference3.set(newSub3);

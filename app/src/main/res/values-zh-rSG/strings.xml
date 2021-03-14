@@ -18,4 +18,6 @@
     <string name="signup_top"><b><u>注冊</u></b></string>
     <string name="email">电子邮件</string>
     <string name="confirm_password">確認密碼</string>
+    <string name="subject_enroll">科目</string>
+
 </resources>

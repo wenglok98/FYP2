@@ -18,4 +18,5 @@
     <string name="signup_top"><b><u>Sign Up</u></b></string>
     <string name="email">E-mail</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="subject_enroll">Subject Enrolled</string>
 </resources>

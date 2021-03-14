@@ -23,10 +23,15 @@ import com.example.fyp2.Activity.LoginActivity;
 import com.example.fyp2.Activity.ProfileActivity;
 import com.example.fyp2.BaseApp.AppManager;
 import com.example.fyp2.Utils.SharedPreferenceUtil;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -37,6 +42,8 @@ public class MenuListFragment extends Fragment {
     private TextView drawerNameView;
     FirebaseAuth fAuth;
     FirebaseStorage storage;
+    FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+
     StorageReference storageReference;
     String UID = "";
 
@@ -63,8 +70,19 @@ public class MenuListFragment extends Fragment {
 //        SharedPreferences sharedPreferences = PreferenceManager
 //                .getDefaultSharedPreferences(getContext());
 //        String name = sharedPreferences.getString("username", "");
-        String name = SharedPreferenceUtil.getFromPrefs(getContext(), "username", "");
-        drawerNameView.setText(name);
+        DocumentReference documentReference = fStore.collection("Users").document(UID);
+        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+
+                String name = SharedPreferenceUtil.getFromPrefs(getContext(), "username", "");
+                drawerNameView.setText(name);
+
+            }
+        });
+
+
         ivMenuUserProfilePhoto = (ImageView) parview.findViewById(R.id.ivMenuUserProfilePhoto);
 //        ivMenuUserProfilePhoto.setImageDrawable(getResources().getDrawable(R.mipmap.ic_launcher));
 
