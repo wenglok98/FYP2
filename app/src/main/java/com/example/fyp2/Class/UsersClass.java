@@ -2,7 +2,31 @@ package com.example.fyp2.Class;
 
 public class UsersClass {
 
-    String username, useremail,userid;
+    String username;
+    String useremail;
+    String userid;
+
+    public String getUserGender() {
+        return userGender;
+    }
+
+    public void setUserGender(String userGender) {
+        this.userGender = userGender;
+    }
+
+    public UsersClass(String username, String useremail, String userid, String userGender, String userPhone, String userAddress, String userStuid, String userCgpa, String userGpa) {
+        this.username = username;
+        this.useremail = useremail;
+        this.userid = userid;
+        this.userGender = userGender;
+        this.userPhone = userPhone;
+        this.userAddress = userAddress;
+        this.userStuid = userStuid;
+        this.userCgpa = userCgpa;
+        this.userGpa = userGpa;
+    }
+
+    String userGender;
 
     public String getUsername() {
         return username;
@@ -33,6 +57,7 @@ public class UsersClass {
         this.useremail = useremail;
         this.userid = userid;
     }
+
     String userPhone, userAddress, userStuid, userCgpa, userGpa;
 
     public String getUserPhone() {

@@ -7,8 +7,10 @@
         android:id="@+id/locsymbol"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
+        android:layout_margin="@dimen/_8sdp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+
         android:src="@drawable/reminder" />
 
     <TextView
@@ -28,9 +30,9 @@
         android:id="@+id/tv_subjectname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/locsymbol"
+        android:layout_below="@id/tv_subjectcode"
         android:layout_toEndOf="@id/locsymbol"
-        android:layout_marginTop="-20dp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:text="351,adsakfjasoijsafoijeofiasjfoasiejf"
         android:paddingBottom="15dp"/>
 

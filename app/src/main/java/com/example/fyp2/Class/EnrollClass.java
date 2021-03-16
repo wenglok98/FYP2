@@ -1,7 +1,28 @@
 package com.example.fyp2.Class;
 
 public class EnrollClass {
-    String studentName, timeStamp, subjectCode,studyMinutes;
+    String studentName;
+    String timeStamp;
+    String subjectCode;
+    String studyMinutes;
+
+    public String getStudentID() {
+        return studentID;
+    }
+
+    public void setStudentID(String studentID) {
+        this.studentID = studentID;
+    }
+
+    public EnrollClass(String studentName, String timeStamp, String subjectCode, String studyMinutes, String studentID) {
+        this.studentName = studentName;
+        this.timeStamp = timeStamp;
+        this.subjectCode = subjectCode;
+        this.studyMinutes = studyMinutes;
+        this.studentID = studentID;
+    }
+
+    String studentID;
 
     public String getStudentName() {
         return studentName;

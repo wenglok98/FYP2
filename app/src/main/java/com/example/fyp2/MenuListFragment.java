@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.fyp2.Activity.EnrollNewSubject;
 import com.example.fyp2.Activity.LoginActivity;
 import com.example.fyp2.Activity.ProfileActivity;
+import com.example.fyp2.Activity.studentEnroll;
 import com.example.fyp2.BaseApp.AppManager;
 import com.example.fyp2.Utils.SharedPreferenceUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -103,7 +104,7 @@ public class MenuListFragment extends Fragment {
                         break;
 
                     case (R.id.Enrollment):
-                        AppManager.getAppManager().ToOtherActivity(EnrollNewSubject.class);
+                        AppManager.getAppManager().ToOtherActivity(studentEnroll.class);
                         break;
 
                 }

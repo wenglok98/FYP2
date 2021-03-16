@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.SubjectDetailActivity">
+
+
+    <include
+        android:id="@+id/apptitleoutlet"
+        layout="@layout/app_title"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentTop="true" />
+
+    <TextView
+        android:id="@+id/subjectName_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/apptitleoutlet"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:text="Subject Name"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_16sdp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/subjectCode_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/subjectName_tv"
+        android:layout_centerHorizontal="true"
+        android:text="Subject Code"
+        android:textSize="@dimen/_12sdp" />
+
+    <TextView
+        android:id="@+id/subjectDescription_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/subjectCode_tv"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:text="Subject Description"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_12sdp" />
+
+    <TextView
+        android:id="@+id/review_htv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/subjectDescription_tv"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="@string/review"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/noReview_htv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/review_htv"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:text="@string/no_review"
+        android:visibility="invisible" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/review_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/noReview_htv"
+        android:layout_margin="@dimen/_3sdp" />
+
+    <TextView
+        android:id="@+id/peopleEnrolled_htv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/review_recycler"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="@string/student"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/noPeopleShow_htv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/peopleEnrolled_htv"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:text="@string/no_student"
+        android:visibility="invisible" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/people_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/noPeopleShow_htv"
+        android:layout_margin="@dimen/_3sdp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/enroll_bt"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/people_recycler"
+        android:layout_centerHorizontal="true"
+        android:text="@string/enroll_bt"
+        app:cornerRadius="20dp"
+        app:strokeColor="@color/teal_200" />
+
+</RelativeLayout>

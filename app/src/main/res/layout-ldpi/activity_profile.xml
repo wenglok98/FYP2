@@ -260,10 +260,12 @@
                     android:layout_height="@dimen/_45sdp"
                     android:text="Save"
                     app:cornerRadius="20dp"
+                    app:strokeColor="@color/teal_200"
+
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/edit_bt"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:strokeColor="@color/teal_200" />
+                    />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

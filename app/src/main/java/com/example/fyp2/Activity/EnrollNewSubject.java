@@ -53,6 +53,8 @@ public class EnrollNewSubject extends AppCompatActivity {
         activityEnrollNewSubjectBinding = ActivityEnrollNewSubjectBinding.inflate(getLayoutInflater());
         View view = activityEnrollNewSubjectBinding.getRoot();
         setContentView(view);
+
+
         ViewModelProvider.Factory factory = new ViewModelProvider.NewInstanceFactory();
 
         fAuth = FirebaseAuth.getInstance();
@@ -91,6 +93,8 @@ public class EnrollNewSubject extends AppCompatActivity {
                     tempSub.setSubjectImage(documentSnapshot.get("subjectCode").toString());
                     tempSub.setSubjectName(documentSnapshot.get("subjectName").toString());
                     tempSub.setSubjectCode(documentSnapshot.get("subjectCode").toString());
+                    tempSub.setSubjectPeople(documentSnapshot.get("subjectPeople").toString());
+                    tempSub.setSubjectType(documentSnapshot.get("subjectType").toString());
                     dataSet.add(tempSub);
 
                 }
@@ -118,7 +122,7 @@ public class EnrollNewSubject extends AppCompatActivity {
     }
 
     private void initAppTitle() {
-        ((TextView) findViewById(R.id.app_title_tv)).setText("Subjects");
+        ((TextView) findViewById(R.id.app_title_tv)).setText(R.string.enrollment);
         findViewById(R.id.btn_back).setVisibility(View.VISIBLE);
         findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,9 +131,16 @@ public class EnrollNewSubject extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        findViewById(R.id.btn_add_subject).setVisibility(View.INVISIBLE);
 
 
     }
+
+
+
+
+
+
 
     private void adddata() {
 
@@ -140,13 +151,13 @@ public class EnrollNewSubject extends AppCompatActivity {
         DocumentReference documentReference5 = fStore.collection("Subjects").document();
         DocumentReference documentReference6 = fStore.collection("Subjects").document();
         DocumentReference documentReference7 = fStore.collection("Subjects").document();
-        SubjectClassModel newSub = new SubjectClassModel("asdf", "UCCD1234", "CHINESE");
-        SubjectClassModel newSub2 = new SubjectClassModel("asdf", "UCCD1422", "Bahasa Melayu");
-        SubjectClassModel newSub3 = new SubjectClassModel("asdf", "UCCD1085", "Maths");
-        SubjectClassModel newSub4 = new SubjectClassModel("asdf", "UCCD17232", "Science");
-        SubjectClassModel newSub5 = new SubjectClassModel("asdf", "UCCD168934", "Physics");
-        SubjectClassModel newSub6 = new SubjectClassModel("asdf", "UCCD159834", "Chemist");
-        SubjectClassModel newSub7 = new SubjectClassModel("asdf", "UCCD177334", "Biology");
+        SubjectClassModel newSub = new SubjectClassModel("asdf", "UCCD1234", "CHINESE","Tutorial","20");
+        SubjectClassModel newSub2 = new SubjectClassModel("asdf", "UCCD1422", "Bahasa Melayu","Lecture","15");
+        SubjectClassModel newSub3 = new SubjectClassModel("asdf", "UCCD1085", "Maths","Lecture","15");
+        SubjectClassModel newSub4 = new SubjectClassModel("asdf", "UCCD17232", "Science","Tutorial","11");
+        SubjectClassModel newSub5 = new SubjectClassModel("asdf", "UCCD168934", "Physics","Lecture","95");
+        SubjectClassModel newSub6 = new SubjectClassModel("asdf", "UCCD159834", "Chemist","Tutorial","30");
+        SubjectClassModel newSub7 = new SubjectClassModel("asdf", "UCCD177334", "Biology","Lecture","32");
         documentReference.set(newSub);
         documentReference2.set(newSub2);
         documentReference3.set(newSub3);
@@ -157,5 +168,7 @@ public class EnrollNewSubject extends AppCompatActivity {
 
 
     }
+
+
 
 }

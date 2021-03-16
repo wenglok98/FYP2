@@ -1,6 +1,7 @@
 package com.example.fyp2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.fyp2.Activity.SubjectDetailActivity;
+import com.example.fyp2.BaseApp.AppManager;
 import com.example.fyp2.Class.SubjectClassModel;
 
 import java.util.ArrayList;
@@ -44,10 +47,24 @@ public class SubjectListAdapter extends RecyclerView.Adapter<SubjectListAdapter.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Test", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(context, SubjectDetailActivity.class);
+                i.putExtra("subjectName", sb.getSubjectName());
+                i.putExtra("subjectCode", sb.getSubjectCode());
+                i.putExtra("subjectDesc", sb.getSubjectDescription());
+                i.putExtra("subjectType", sb.getSubjectType());
+                context.startActivity(i);
+
+
+//                AppManager.getAppManager().ToOtherActivity(SubjectDetailActivity.class);
             }
         });
 
+        if (sb.getSubjectType().equals("Tutorial")) {
+            Glide.with(context).load(R.drawable.tutorial_symbol).into(holder.im_subject);
+        } else if (sb.getSubjectType().equals("Lecture")) {
+            Glide.with(context).load(R.drawable.practical_symbol).into(holder.im_subject);
+
+        }
 
     }
 

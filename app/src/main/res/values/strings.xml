@@ -19,5 +19,10 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="email">E-mail</string>
     <string name="subject_enroll">Subject Enrolled</string>
+    <string name="review">Review</string>
+    <string name="no_review">No Review / Comment</string>
+    <string name="student">Students</string>
+    <string name="no_student">No Student Enrolled in this subject yet</string>
+    <string name="enroll_bt">Enroll</string>
 
 </resources>

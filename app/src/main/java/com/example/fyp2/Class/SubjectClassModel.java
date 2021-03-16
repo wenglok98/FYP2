@@ -3,7 +3,28 @@ package com.example.fyp2.Class;
 public class SubjectClassModel {
     String subjectImage;
     String subjectCode;
+    String subjectDescription;
+
+    public String getSubjectDescription() {
+        return subjectDescription;
+    }
+
+    public void setSubjectDescription(String subjectDescription) {
+        this.subjectDescription = subjectDescription;
+    }
+
+    public SubjectClassModel(String subjectImage, String subjectCode, String subjectDescription, String subjectName, String subjectPeople, String subjectType) {
+        this.subjectImage = subjectImage;
+        this.subjectCode = subjectCode;
+        this.subjectDescription = subjectDescription;
+        this.subjectName = subjectName;
+        this.subjectPeople = subjectPeople;
+        this.subjectType = subjectType;
+    }
+
     String subjectName;
+    String subjectPeople;
+
     String subjectType;
 
     public String getSubjectType() {
@@ -30,7 +51,6 @@ public class SubjectClassModel {
         this.subjectPeople = subjectPeople;
     }
 
-    String subjectPeople;
 
     public String getSubjectImage() {
         return subjectImage;
