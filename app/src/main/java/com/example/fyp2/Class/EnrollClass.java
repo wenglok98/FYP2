@@ -5,6 +5,15 @@ public class EnrollClass {
     String timeStamp;
     String subjectCode;
     String studyMinutes;
+String subjectType;
+
+    public String getSubjectType() {
+        return subjectType;
+    }
+
+    public void setSubjectType(String subjectType) {
+        this.subjectType = subjectType;
+    }
 
     public String getStudentID() {
         return studentID;
