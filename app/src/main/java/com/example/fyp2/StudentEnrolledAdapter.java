@@ -34,13 +34,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class StudentEnrolledAdapter extends RecyclerView.Adapter<StudentEnrolledAdapter.MyViewHolder> {
     Context context;
     ArrayList<UsersClass> subjectListAdapterArrayList = new ArrayList<UsersClass>();
+    ArrayList<String> enrolledTimeList = new ArrayList<String>();
     StorageReference storageReference;
     FirebaseStorage storage;
 
 
-    public StudentEnrolledAdapter(Context ct, ArrayList<UsersClass> subjectListAdapters) {
+    public StudentEnrolledAdapter(Context ct, ArrayList<UsersClass> subjectListAdapters, ArrayList<String> enrolledTimeList1) {
         context = ct;
         subjectListAdapterArrayList = subjectListAdapters;
+        enrolledTimeList = enrolledTimeList1;
     }
 
     @NonNull
@@ -56,7 +58,7 @@ public class StudentEnrolledAdapter extends RecyclerView.Adapter<StudentEnrolled
         UsersClass sb = subjectListAdapterArrayList.get(position);
 
         holder.stuName.setText(sb.getUsername());
-        holder.enrollemntDate.setText(sb.getUserid());
+        holder.enrollemntDate.setText("Enrolled Date : " + enrolledTimeList.get(position).toString());
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 

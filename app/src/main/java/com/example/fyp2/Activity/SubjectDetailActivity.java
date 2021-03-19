@@ -8,10 +8,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.fyp2.BaseApp.BaseActivity;
 import com.example.fyp2.Class.EnrollClass;
+import com.example.fyp2.Class.ReviewCommentClass;
 import com.example.fyp2.Class.UsersClass;
+import com.example.fyp2.EnrollReviewAdapter;
 import com.example.fyp2.R;
 import com.example.fyp2.StudentEnrolledAdapter;
 import com.example.fyp2.Utils.SharedPreferenceUtil;
@@ -56,6 +59,9 @@ public class SubjectDetailActivity extends BaseActivity {
         initAppTitle();
         initSubData();
         initStudentEnrolled();
+        initReview();
+
+
     }
 
     private void initAppTitle() {
@@ -66,6 +72,7 @@ public class SubjectDetailActivity extends BaseActivity {
             public void onClick(View v) {
 //                adddata();
                 onBackPressed();
+//                Toast.makeText(SubjectDetailActivity.this, String.valueOf(activitySubjectDetailBinding.ratingBar.getRating()), Toast.LENGTH_SHORT).show();
             }
         });
         findViewById(R.id.btn_add_subject).setVisibility(View.INVISIBLE);
@@ -139,6 +146,7 @@ public class SubjectDetailActivity extends BaseActivity {
     private void initStudentEnrolled() {
         Intent i = getIntent();
         ArrayList<String> studentIDArrayList = new ArrayList<String>();
+        ArrayList<String> studentEnrolledTimeList = new ArrayList<String>();
         Task<QuerySnapshot> documentReference = fStore.collection("Enrollment")
                 .whereEqualTo("subjectCode", i.getStringExtra("subjectCode"))
                 .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -146,10 +154,12 @@ public class SubjectDetailActivity extends BaseActivity {
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                             studentIDArrayList.add(documentSnapshot.getString("studentID"));
+                            studentEnrolledTimeList.add(documentSnapshot.getString("timeStamp"));
+
 
                         }
 
-                        getStudnetInformation(studentIDArrayList);
+                        getStudnetInformation(studentIDArrayList, studentEnrolledTimeList);
 
 
                     }
@@ -158,15 +168,17 @@ public class SubjectDetailActivity extends BaseActivity {
 
     }
 
-    private void getStudnetInformation(ArrayList<String> arrayList) {
+    private void getStudnetInformation(ArrayList<String> arrayList, ArrayList<String> enrolltimelist1) {
         ArrayList<UsersClass> usersClassArrayList = new ArrayList<>();
+        ArrayList<String> enrolltimelist = enrolltimelist1;
 
-        StudentEnrolledAdapter studentEnrolledAdapter = new StudentEnrolledAdapter(getApplication(),usersClassArrayList);
+        StudentEnrolledAdapter studentEnrolledAdapter = new StudentEnrolledAdapter(getApplication(), usersClassArrayList, enrolltimelist);
         activitySubjectDetailBinding.peopleRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         activitySubjectDetailBinding.peopleRecycler.setAdapter(studentEnrolledAdapter);
         ArrayList<String> studentIDArrayList = arrayList;
         for (int i = 0; i < studentIDArrayList.size(); i++) {
-            Task<DocumentSnapshot> documentReference = fStore.collection("Users").document(studentIDArrayList.get(i))
+            Task<DocumentSnapshot> documentReference = fStore.collection("Users")
+                    .document(studentIDArrayList.get(i))
                     .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -182,6 +194,7 @@ public class SubjectDetailActivity extends BaseActivity {
 
                             usersClassArrayList.add(tempUser);
 
+
                             studentEnrolledAdapter.notifyDataSetChanged();
 
 
@@ -189,6 +202,43 @@ public class SubjectDetailActivity extends BaseActivity {
                     });
         }
 
+
+    }
+
+    private void initReview() {
+
+        ArrayList<ReviewCommentClass> arrayList = new ArrayList<>();
+
+        EnrollReviewAdapter studentEnrolledAdapter = new EnrollReviewAdapter(getApplication(), arrayList);
+        activitySubjectDetailBinding.reviewRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        activitySubjectDetailBinding.reviewRecycler.setAdapter(studentEnrolledAdapter);
+
+
+        Task<QuerySnapshot> documentReference = fStore.collection("Review")
+                .whereEqualTo("subjectCode",subjectCode)
+                .get();
+
+        documentReference.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+
+                    ReviewCommentClass tempReview = new ReviewCommentClass();
+                    tempReview.setSubjectCode(documentSnapshot.getString("subjectCode"));
+                    tempReview.setUid(documentSnapshot.getString("uid"));
+                    tempReview.setRating(documentSnapshot.getString("rating"));
+                    tempReview.setName(documentSnapshot.getString("name"));
+                    tempReview.setEnrollmentDate(documentSnapshot.getString("enrollmentDate"));
+                    tempReview.setComment(documentSnapshot.getString("comment"));
+
+
+                    arrayList.add(tempReview);
+
+                    studentEnrolledAdapter.notifyDataSetChanged();
+
+                }
+            }
+        });
 
 
     }

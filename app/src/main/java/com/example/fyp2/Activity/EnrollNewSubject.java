@@ -1,17 +1,22 @@
 package com.example.fyp2.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.fyp2.Class.SubjectClassModel;
 import com.example.fyp2.R;
@@ -21,6 +26,7 @@ import com.example.fyp2.databinding.ActivityEnrollNewSubjectBinding;
 import com.example.fyp2.databinding.ActivityProfileBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -45,6 +51,8 @@ public class EnrollNewSubject extends AppCompatActivity {
     FirebaseAuth fAuth;
     FirebaseFirestore fStore = FirebaseFirestore.getInstance();
     String UID;
+    ItemTouchHelper.SimpleCallback simpleCallback;
+    ItemTouchHelper itemTouchHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +61,22 @@ public class EnrollNewSubject extends AppCompatActivity {
         activityEnrollNewSubjectBinding = ActivityEnrollNewSubjectBinding.inflate(getLayoutInflater());
         View view = activityEnrollNewSubjectBinding.getRoot();
         setContentView(view);
+
+        simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+//                Toast.makeText(EnrollNewSubject.this, "SWIPED", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EnrollNewSubject.this, String.valueOf(viewHolder.getAdapterPosition()), Toast.LENGTH_SHORT).show();
+                adapter.notifyDataSetChanged();
+
+            }
+        };
+        itemTouchHelper = new ItemTouchHelper(simpleCallback);
 
 
         ViewModelProvider.Factory factory = new ViewModelProvider.NewInstanceFactory();
@@ -82,29 +106,29 @@ public class EnrollNewSubject extends AppCompatActivity {
         adapter = new SubjectListAdapter(EnrollNewSubject.this, dataSet);
         activityEnrollNewSubjectBinding.subjectRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         activityEnrollNewSubjectBinding.subjectRecyclerView.setAdapter(adapter);
+        itemTouchHelper.attachToRecyclerView(activityEnrollNewSubjectBinding.subjectRecyclerView);
+        Task<QuerySnapshot> documentReference = fStore.collection("Subjects")
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
 
-        Task<QuerySnapshot> documentReference = fStore.collection("Subjects").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                            SubjectClassModel tempSub = new SubjectClassModel();
+                            tempSub.setSubjectImage(documentSnapshot.get("subjectCode").toString());
+                            tempSub.setSubjectName(documentSnapshot.get("subjectName").toString());
+                            tempSub.setSubjectCode(documentSnapshot.get("subjectCode").toString());
+                            tempSub.setSubjectPeople(documentSnapshot.get("subjectPeople").toString());
+                            tempSub.setSubjectType(documentSnapshot.get("subjectType").toString());
+                            dataSet.add(tempSub);
+                        }
+                        dataSet.sort(Comparator.comparing(a -> a.getSubjectName()));
+                        adapter.notifyDataSetChanged();
 
-                    SubjectClassModel tempSub = new SubjectClassModel();
-                    tempSub.setSubjectImage(documentSnapshot.get("subjectCode").toString());
-                    tempSub.setSubjectName(documentSnapshot.get("subjectName").toString());
-                    tempSub.setSubjectCode(documentSnapshot.get("subjectCode").toString());
-                    tempSub.setSubjectPeople(documentSnapshot.get("subjectPeople").toString());
-                    tempSub.setSubjectType(documentSnapshot.get("subjectType").toString());
-                    dataSet.add(tempSub);
-
-                }
-                dataSet.sort(Comparator.comparing(a -> a.getSubjectName()));
-                adapter.notifyDataSetChanged();
-
-            }
+                    }
 
 
-        });
+                });
 
 
         activityEnrollNewSubjectBinding.sideView.setOnTouchLetterChangeListener(new WaveSideBarView.OnTouchLetterChangeListener() {
@@ -137,11 +161,6 @@ public class EnrollNewSubject extends AppCompatActivity {
     }
 
 
-
-
-
-
-
     private void adddata() {
 
         DocumentReference documentReference = fStore.collection("Subjects").document();
@@ -151,13 +170,13 @@ public class EnrollNewSubject extends AppCompatActivity {
         DocumentReference documentReference5 = fStore.collection("Subjects").document();
         DocumentReference documentReference6 = fStore.collection("Subjects").document();
         DocumentReference documentReference7 = fStore.collection("Subjects").document();
-        SubjectClassModel newSub = new SubjectClassModel("asdf", "UCCD1234", "CHINESE","Tutorial","20");
-        SubjectClassModel newSub2 = new SubjectClassModel("asdf", "UCCD1422", "Bahasa Melayu","Lecture","15");
-        SubjectClassModel newSub3 = new SubjectClassModel("asdf", "UCCD1085", "Maths","Lecture","15");
-        SubjectClassModel newSub4 = new SubjectClassModel("asdf", "UCCD17232", "Science","Tutorial","11");
-        SubjectClassModel newSub5 = new SubjectClassModel("asdf", "UCCD168934", "Physics","Lecture","95");
-        SubjectClassModel newSub6 = new SubjectClassModel("asdf", "UCCD159834", "Chemist","Tutorial","30");
-        SubjectClassModel newSub7 = new SubjectClassModel("asdf", "UCCD177334", "Biology","Lecture","32");
+        SubjectClassModel newSub = new SubjectClassModel("asdf", "UCCD1234", "CHINESE", "Tutorial", "20");
+        SubjectClassModel newSub2 = new SubjectClassModel("asdf", "UCCD1422", "Bahasa Melayu", "Lecture", "15");
+        SubjectClassModel newSub3 = new SubjectClassModel("asdf", "UCCD1085", "Maths", "Lecture", "15");
+        SubjectClassModel newSub4 = new SubjectClassModel("asdf", "UCCD17232", "Science", "Tutorial", "11");
+        SubjectClassModel newSub5 = new SubjectClassModel("asdf", "UCCD168934", "Physics", "Lecture", "95");
+        SubjectClassModel newSub6 = new SubjectClassModel("asdf", "UCCD159834", "Chemist", "Tutorial", "30");
+        SubjectClassModel newSub7 = new SubjectClassModel("asdf", "UCCD177334", "Biology", "Lecture", "32");
         documentReference.set(newSub);
         documentReference2.set(newSub2);
         documentReference3.set(newSub3);
@@ -169,6 +188,19 @@ public class EnrollNewSubject extends AppCompatActivity {
 
     }
 
+    private void commentReview() {
+
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
+                getApplicationContext(), R.style.BottomSheetDialogTheme
+        );
+        View bottomSheetView = LayoutInflater.from(getApplicationContext()).inflate(
+                R.layout.layout_bottom_sheet,
+                findViewById(R.id.bottomSheetContainer)
+        );
+        bottomSheetDialog.setContentView(bottomSheetView);
+        bottomSheetDialog.show();
+
+    }
 
 
 }

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="@dimen/_5sdp"
+    android:layout_height="wrap_content">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:src="@drawable/jisoo"
+        android:id="@+id/reviewPP_CIM"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/reviewName_tv"
+        android:layout_toRightOf="@id/reviewPP_CIM"
+        android:text="Jisoo"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:textSize="@dimen/_12sdp"
+        android:textColor="@color/black"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/enrollDate_tv"
+        android:layout_below="@id/reviewName_tv"
+        android:text="Enrollment Date : XXXXXXX"
+        android:layout_alignLeft="@id/reviewName_tv"
+        android:textSize="@dimen/_9sdp"
+        />
+    <per.wsj.library.AndRatingBar
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="@dimen/_13sdp"
+        android:layout_below="@id/reviewPP_CIM"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:rating="3.5"
+        app:starColor="#ffe600"
+        android:id="@+id/ratingBar"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ratingBar"
+        android:text="Review"
+        android:id="@+id/reviewComment_tv"
+        android:textSize="@dimen/_11sdp"
+        android:textColor="@color/black"/>
+
+</RelativeLayout>

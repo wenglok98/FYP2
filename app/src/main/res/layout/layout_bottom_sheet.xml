@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottomSheetContainer"
+    android:layout_width="match_parent"
+    android:padding="@dimen/_10sdp"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_5sdp"
+    android:background="@drawable/bottom_sheet_background">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:id="@+id/dragView"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/drag_minus" />
+    <TextView
+        android:id="@+id/bottomsheet_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Leave a Comment"
+        android:textColor="@color/black"
+        android:layout_below="@id/dragView"
+        android:textSize="@dimen/_16sdp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/review_name_im_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bottomsheet_title_tv"
+
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/bottom_sheet_CIM"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:src="@drawable/jisoo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_vertical"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:text="Jisoo"
+            android:id="@+id/bottomsheet_name_tv"
+            android:textSize="@dimen/_17sdp" />
+
+    </LinearLayout>
+
+    <per.wsj.library.AndRatingBar
+        android:layout_width="@dimen/_100sdp"
+        app:starColor="#ffe600"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:layout_height="@dimen/_25sdp"
+        android:layout_below="@id/review_name_im_ll"
+android:layout_alignLeft="@id/bottomsheet_comment_edt"
+        android:id="@+id/review_bottomsheet_ratingbar"/>
+    <EditText
+        android:id="@+id/bottomsheet_comment_edt"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_100sdp"
+        android:padding="@dimen/_10sdp"
+        android:gravity="start"
+        android:background="@drawable/edt_background"
+        android:layout_below="@id/review_bottomsheet_ratingbar"
+        android:hint="Please Enter Your Review Here"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=" Submit "
+        android:backgroundTint="#2196F3"
+        android:id="@+id/bottomsheet_submit_bt"
+        app:cornerRadius="@dimen/_10sdp"
+        android:elevation="@dimen/_20sdp"
+        android:textColor="@color/white"
+        android:layout_below="@id/bottomsheet_comment_edt"
+android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/_3sdp"/>
+
+</RelativeLayout>

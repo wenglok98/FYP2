@@ -48,6 +48,7 @@
 
     <TextView
         android:id="@+id/review_htv"
+        android:textSize="@dimen/_16sdp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/subjectDescription_tv"
@@ -70,9 +71,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/review_recycler"
         android:layout_width="match_parent"
+        android:overScrollMode="never"
+
         android:layout_height="wrap_content"
         android:layout_below="@id/noReview_htv"
-        android:layout_margin="@dimen/_3sdp" />
+        android:layout_margin="@dimen/_3sdp" />z
 
     <TextView
         android:id="@+id/peopleEnrolled_htv"
@@ -82,6 +85,8 @@
         android:layout_marginLeft="@dimen/_5sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:text="@string/student"
+        android:textSize="@dimen/_16sdp"
+
         android:textStyle="bold" />
 
     <TextView
@@ -96,6 +101,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/people_recycler"
         android:layout_width="match_parent"
+        android:overScrollMode="never"
         android:layout_height="wrap_content"
         android:layout_below="@id/noPeopleShow_htv"
         android:layout_margin="@dimen/_3sdp" />

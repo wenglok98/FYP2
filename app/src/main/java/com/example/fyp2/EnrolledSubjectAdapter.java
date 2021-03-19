@@ -44,6 +44,7 @@ public class EnrolledSubjectAdapter extends RecyclerView.Adapter<EnrolledSubject
         EnrollClass sb = subjectListAdapterArrayList.get(position);
 
 
+
         holder.tv_name.setText(sb.getTimeStamp());
         holder.tv_code.setText(sb.getSubjectCode());
 

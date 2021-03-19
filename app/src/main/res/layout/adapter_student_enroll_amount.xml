@@ -12,7 +12,7 @@
         android:layout_toLeftOf="@id/gender_im"
         android:text="Name : ABCDEFG"
         android:textColor="@color/black"
-        android:textSize="@dimen/_18sdp" />
+        android:textSize="@dimen/_16sdp" />
 
     <TextView
         android:id="@+id/enrollment_date_tv"
@@ -25,8 +25,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/gender_im"
-        android:layout_width="@dimen/_50sdp"
-        android:layout_height="@dimen/_50sdp"
+        android:layout_width="@dimen/_35sdp"
+        android:layout_height="@dimen/_35sdp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true" />
 
