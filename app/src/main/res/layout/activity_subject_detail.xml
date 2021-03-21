@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".Activity.SubjectDetailActivity">
 
 
@@ -14,107 +14,173 @@
         android:layout_height="45dp"
         android:layout_alignParentTop="true" />
 
-    <TextView
-        android:id="@+id/subjectName_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/apptitleoutlet"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:text="Subject Name"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_16sdp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/subjectCode_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/subjectName_tv"
-        android:layout_centerHorizontal="true"
-        android:text="Subject Code"
-        android:textSize="@dimen/_12sdp" />
-
-    <TextView
-        android:id="@+id/subjectDescription_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/subjectCode_tv"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:text="Subject Description"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_12sdp" />
-
-    <TextView
-        android:id="@+id/review_htv"
-        android:textSize="@dimen/_16sdp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/subjectDescription_tv"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="@dimen/_5sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:text="@string/review"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/noReview_htv"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/review_htv"
-        android:layout_marginLeft="@dimen/_5sdp"
-        android:text="@string/no_review"
-        android:visibility="invisible" />
+        android:layout_below="@id/apptitleoutlet">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            >
+
+            <TextView
+                android:id="@+id/subjectName_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:elevation="@dimen/_20sdp"
+                android:text="Subject Name"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_16sdp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/subjectCode_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/subjectName_tv"
+                android:layout_centerHorizontal="true"
+                android:text="Subject Code"
+                android:textSize="@dimen/_12sdp" />
+
+            <TextView
+                android:id="@+id/subjectDescription_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/subjectCode_tv"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:text="Subject Description"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp" />
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/review_recycler"
-        android:layout_width="match_parent"
-        android:overScrollMode="never"
+            <RelativeLayout
+                android:id="@+id/divider_rl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/subjectDescription_tv"
+                android:gravity="center">
 
-        android:layout_height="wrap_content"
-        android:layout_below="@id/noReview_htv"
-        android:layout_margin="@dimen/_3sdp" />z
+                <ImageView
+                    android:id="@+id/divider_left"
+                    android:layout_width="@dimen/_120sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/left_divider" />
 
-    <TextView
-        android:id="@+id/peopleEnrolled_htv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/review_recycler"
-        android:layout_marginLeft="@dimen/_5sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:text="@string/student"
-        android:textSize="@dimen/_16sdp"
+                <TextView
+                    android:id="@+id/review_htv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:elevation="@dimen/_20sdp"
+                    android:text="@string/review"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_16sdp"
+                    android:textStyle="bold" />
 
-        android:textStyle="bold" />
+                <ImageView
+                    android:id="@+id/divider_right"
+                    android:layout_width="@dimen/_120sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/right_divider" />
 
-    <TextView
-        android:id="@+id/noPeopleShow_htv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/peopleEnrolled_htv"
-        android:layout_marginLeft="@dimen/_5sdp"
-        android:text="@string/no_student"
-        android:visibility="invisible" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/people_recycler"
-        android:layout_width="match_parent"
-        android:overScrollMode="never"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/noPeopleShow_htv"
-        android:layout_margin="@dimen/_3sdp" />
+            </RelativeLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/enroll_bt"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/people_recycler"
-        android:layout_centerHorizontal="true"
-        android:text="@string/enroll_bt"
-        app:cornerRadius="20dp"
-        app:strokeColor="@color/teal_200" />
+            <TextView
+                android:id="@+id/noReview_htv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/divider_rl"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:text="@string/no_review"
+                android:visibility="invisible" />
 
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/review_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_below="@id/noReview_htv"
+                android:layout_margin="@dimen/_3sdp"
+                android:overScrollMode="never" />
+
+
+            <RelativeLayout
+                android:id="@+id/divider2_rl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/review_recycler"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/divider_left2"
+                    android:layout_width="@dimen/_120sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/left_divider" />
+
+                <TextView
+                    android:id="@+id/peopleEnrolled_htv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:elevation="@dimen/_20sdp"
+                    android:text="@string/student"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_16sdp"
+
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/divider_right2"
+                    android:layout_width="@dimen/_120sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/right_divider" />
+
+
+            </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/noPeopleShow_htv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/divider2_rl"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:text="@string/no_student"
+                android:visibility="invisible" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/people_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/noPeopleShow_htv"
+                android:layout_margin="@dimen/_3sdp"
+                android:overScrollMode="never" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/enroll_bt"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/people_recycler"
+                android:layout_centerHorizontal="true"
+                android:text="@string/enroll_bt"
+                app:cornerRadius="20dp"
+                app:strokeColor="@color/teal_200" />
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

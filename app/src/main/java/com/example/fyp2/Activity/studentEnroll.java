@@ -2,10 +2,13 @@ package com.example.fyp2.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Layout;
@@ -38,6 +41,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
@@ -92,7 +96,7 @@ public class studentEnroll extends BaseActivity {
                         commentReview(viewHolder.getAdapterPosition());
                         break;
                     case ItemTouchHelper.LEFT:
-                        Toast.makeText(studentEnroll.this, "Break", Toast.LENGTH_SHORT).show();
+                        showDeleteDialog(dataSet.get(viewHolder.getAdapterPosition()).getSubjectCode());
                         break;
                 }
 //                Toast.makeText(studentEnroll.this, String.valueOf(viewHolder.getAdapterPosition()), Toast.LENGTH_SHORT).show();
@@ -132,8 +136,10 @@ public class studentEnroll extends BaseActivity {
         adapter = new EnrolledSubjectAdapter(studentEnroll.this, dataSet);
         activityEnrollNewSubjectBinding.enrolledSubjectRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         activityEnrollNewSubjectBinding.enrolledSubjectRecycler.setAdapter(adapter);
-        itemTouchHelper.attachToRecyclerView(activityEnrollNewSubjectBinding.enrolledSubjectRecycler);
+        activityEnrollNewSubjectBinding.enrolledSubjectRecycler.addItemDecoration(new DividerItemDecoration(activityEnrollNewSubjectBinding.enrolledSubjectRecycler.getContext(), DividerItemDecoration.VERTICAL));
 
+        itemTouchHelper.attachToRecyclerView(activityEnrollNewSubjectBinding.enrolledSubjectRecycler);
+        dataSet.clear();
         Task<QuerySnapshot> docRef = fStore.collection("Enrollment").whereEqualTo("studentID", UID).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -177,11 +183,22 @@ public class studentEnroll extends BaseActivity {
         documentReference.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if (!queryDocumentSnapshots.isEmpty()) {
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+
                     bottomSheetView.findViewById(R.id.bottomsheet_submit_bt).setEnabled(false);
-                    edt.setHint("You Had Already Leave a Review");
+                    edt.setHint(documentSnapshot.get("comment").toString());
+                    AndRatingBar ratingBar;
+                    ratingBar = bottomSheetView.findViewById(R.id.review_bottomsheet_ratingbar);
+                    ratingBar.setEnabled(false);
+                    Float asdfsdaf = Float.parseFloat(documentSnapshot.get("rating").toString());
+                    ratingBar.setRating(Float.parseFloat(documentSnapshot.get("rating").toString()));
+                    edt.setBackgroundColor(Color.parseColor("#b3b3b3"));
                     edt.setEnabled(false);
+
                 }
+//                if (!queryDocumentSnapshots.getDocuments().isEmpty()) {
+//
+//                }
             }
         });
         storageReference.child("images/" + UID).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -214,7 +231,7 @@ public class studentEnroll extends BaseActivity {
                 AndRatingBar andRatingBar;
                 andRatingBar = bottomSheetView.findViewById(R.id.review_bottomsheet_ratingbar);
 
-                String starValue = String.valueOf(andRatingBar.getNumStars());
+                String starValue = String.valueOf(andRatingBar.getRating());
                 String comment_review = edt.getText().toString();
                 Date date = Calendar.getInstance().getTime();
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -245,5 +262,50 @@ public class studentEnroll extends BaseActivity {
         bottomSheetDialog.setContentView(bottomSheetView);
         bottomSheetDialog.show();
 
+    }
+
+    private void showDeleteDialog(String subjectCode) {
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+        builder.setTitle("Drop Subject")
+                .setMessage("Are you sure you want to drop Subject?")
+                .setPositiveButton("Drop", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                        deleteSubject(subjectCode);
+
+
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+    }
+
+    private void deleteSubject(String subjectCode) {
+
+        Task<QuerySnapshot> documentReference = fStore.collection("Enrollment")
+                .whereEqualTo("studentID", UID)
+                .whereEqualTo("subjectCode", subjectCode).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        fStore.collection("Enrollment").document(queryDocumentSnapshots.getDocuments().get(0).getId())
+                                .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+
+                                SnackUtil.show(getApplication(), "Subject Dropped");
+
+                                initData();
+                            }
+                        });
+
+                    }
+                });
+
+        adapter.notifyDataSetChanged();
     }
 }

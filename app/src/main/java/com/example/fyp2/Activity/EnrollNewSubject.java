@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -106,6 +107,9 @@ public class EnrollNewSubject extends AppCompatActivity {
         adapter = new SubjectListAdapter(EnrollNewSubject.this, dataSet);
         activityEnrollNewSubjectBinding.subjectRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         activityEnrollNewSubjectBinding.subjectRecyclerView.setAdapter(adapter);
+
+        activityEnrollNewSubjectBinding.subjectRecyclerView.addItemDecoration(new DividerItemDecoration(activityEnrollNewSubjectBinding.subjectRecyclerView.getContext(), DividerItemDecoration.VERTICAL));
+
         itemTouchHelper.attachToRecyclerView(activityEnrollNewSubjectBinding.subjectRecyclerView);
         Task<QuerySnapshot> documentReference = fStore.collection("Subjects")
                 .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {

@@ -77,7 +77,7 @@ public class EnrollReviewAdapter extends RecyclerView.Adapter<EnrollReviewAdapte
             }
         });
 
-        holder.ratingBar.setNumStars(Integer.parseInt(sb.getRating()));
+
 
     }
 

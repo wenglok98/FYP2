@@ -2,6 +2,7 @@ package com.example.fyp2.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
@@ -175,6 +176,8 @@ public class SubjectDetailActivity extends BaseActivity {
         StudentEnrolledAdapter studentEnrolledAdapter = new StudentEnrolledAdapter(getApplication(), usersClassArrayList, enrolltimelist);
         activitySubjectDetailBinding.peopleRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         activitySubjectDetailBinding.peopleRecycler.setAdapter(studentEnrolledAdapter);
+        activitySubjectDetailBinding.peopleRecycler.addItemDecoration(new DividerItemDecoration(activitySubjectDetailBinding.peopleRecycler.getContext(), DividerItemDecoration.VERTICAL));
+
         ArrayList<String> studentIDArrayList = arrayList;
         for (int i = 0; i < studentIDArrayList.size(); i++) {
             Task<DocumentSnapshot> documentReference = fStore.collection("Users")
@@ -212,6 +215,7 @@ public class SubjectDetailActivity extends BaseActivity {
         EnrollReviewAdapter studentEnrolledAdapter = new EnrollReviewAdapter(getApplication(), arrayList);
         activitySubjectDetailBinding.reviewRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         activitySubjectDetailBinding.reviewRecycler.setAdapter(studentEnrolledAdapter);
+        activitySubjectDetailBinding.reviewRecycler.addItemDecoration(new DividerItemDecoration(activitySubjectDetailBinding.reviewRecycler.getContext(), DividerItemDecoration.VERTICAL));
 
 
         Task<QuerySnapshot> documentReference = fStore.collection("Review")
