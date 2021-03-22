@@ -9,4 +9,12 @@
     <color name="white">#FFFFFFFF</color>
     <color name="opacity_8_gray_4c">#cc4c4c4c</color>
     <color name="light_grey">#d6d6d6</color>
+
+    <color name="blue">#348af7</color>
+
+    <color name="temperature_background">@color/blue</color>
+    <color name="temperature_text">@android:color/white</color>
+
+    <color name="green_dot_big">@color/blue</color>
+    <color name="green_dot_small">@color/blue</color>
 </resources>

@@ -47,7 +47,13 @@ public class BaseActivity extends FragmentActivity
 
         LangUtils langUtils;
         langUtils = new LangUtils();
-        langUtils.checkLang(this);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                langUtils.checkLang(BaseActivity.this);
+
+            }
+        }).start();
         //透明状态栏
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         //透明导航栏

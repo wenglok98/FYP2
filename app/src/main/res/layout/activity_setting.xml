@@ -5,13 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.SettingActivity">
-
+    <include
+        android:layout_height="45dp"
+        android:layout_width="match_parent"
+        layout="@layout/app_title"
+   android:layout_alignParentTop="true"
+        android:id="@+id/apptit"/>
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:id="@+id/loclayout"
+        android:layout_below="@id/apptit"
         app:helperText="Language"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"

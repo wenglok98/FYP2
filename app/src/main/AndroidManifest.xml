@@ -20,7 +20,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Fyp2">
-        <activity android:name=".Activity.SettingActivity"></activity>
+        <activity android:name=".Activity.DetailsActivity"></activity>
+        <activity android:name=".Activity.MainSubjectActivity" />
+        <activity android:name=".Activity.SettingActivity" />
         <activity android:name=".Activity.SubjectDetailActivity" />
         <activity android:name=".Activity.studentEnroll" />
         <activity android:name=".Activity.EnrollNewSubject" />

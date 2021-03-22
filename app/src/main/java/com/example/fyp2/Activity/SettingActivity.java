@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fyp2.Class.LangString;
@@ -36,7 +37,7 @@ public class SettingActivity extends AppCompatActivity {
         language.add("Chinese");
         languageCode.add("en");
         languageCode.add("zh");
-
+        initAppTitle();
 
         activitySettingBinding = ActivitySettingBinding.inflate(getLayoutInflater());
         View view = activitySettingBinding.getRoot();
@@ -98,5 +99,22 @@ public class SettingActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    private void initAppTitle() {
+        ((TextView) findViewById(R.id.app_title_tv)).setText(R.string.setting);
+        findViewById(R.id.btn_back).setVisibility(View.VISIBLE);
+        findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                adddata();
+                onBackPressed();
+//                Toast.makeText(SubjectDetailActivity.this, String.valueOf(activitySubjectDetailBinding.ratingBar.getRating()), Toast.LENGTH_SHORT).show();
+            }
+        });
+        findViewById(R.id.btn_add_subject).setVisibility(View.INVISIBLE);
+
+
     }
 }

@@ -15,6 +15,7 @@ import com.coorchice.library.SuperTextView;
 import com.coorchice.library.gifdecoder.GifDrawable;
 import com.coorchice.library.utils.STVUtils;
 import com.coorchice.library.utils.ThreadPool;
+import com.example.fyp2.Activity.MainSubjectActivity;
 import com.example.fyp2.Activity.NotesActivity;
 import com.example.fyp2.BaseApp.AppManager;
 import com.example.fyp2.NotesListActivity;
@@ -61,6 +62,13 @@ public class HomeFragment extends Fragment {
 
         initPie();
 
+
+        stv_4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppManager.getAppManager().ToOtherActivity(MainSubjectActivity.class);
+            }
+        });
         notebt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

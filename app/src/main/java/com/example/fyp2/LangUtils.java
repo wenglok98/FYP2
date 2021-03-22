@@ -35,34 +35,38 @@ public class LangUtils {
             realm.commitTransaction();
 //            Toast.makeText(this, "KOSONG", Toast.LENGTH_SHORT).show();
         } else if (lang1.equals("en")) {
-            setLocale(lang1,ct);
+            setLocale(lang1, ct);
         } else if
         (lang1.equals("zh")) {
-            setLocale(lang1,ct);
+            setLocale(lang1, ct);
         }
 
-        setLocale(lang1,ct);
+        setLocale(lang1, ct);
     }
+
     public void setLocale(String lang, Context context) {
 
-        Realm.init(context);
-        realm = Realm.getDefaultInstance();
-        Locale locale = new Locale(lang);
-        Resources res = context.getResources();
-        DisplayMetrics dm = res.getDisplayMetrics();
-        Configuration conf = res.getConfiguration();
-        conf.locale = locale;
-        res.updateConfiguration(conf, dm);
-        LangString langset = realm.where(LangString.class).findFirst();
-        Realm.getDefaultInstance().executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                langset.setLangS(lang);
-                realm.insertOrUpdate(langset);
+                Realm.init(context);
+                realm = Realm.getDefaultInstance();
+                Locale locale = new Locale(lang);
+                Resources res = context.getResources();
+                DisplayMetrics dm = res.getDisplayMetrics();
+                Configuration conf = res.getConfiguration();
+                conf.locale = locale;
+                res.updateConfiguration(conf, dm);
+                LangString langset = realm.where(LangString.class).findFirst();
+                Realm.getDefaultInstance().executeTransaction(new Realm.Transaction() {
+                    @Override
+                    public void execute(Realm realm) {
+                        langset.setLangS(lang);
+                        realm.insertOrUpdate(langset);
+                    }
+                });
             }
-        });
 
-    }
+
+
+
 
 
 }
