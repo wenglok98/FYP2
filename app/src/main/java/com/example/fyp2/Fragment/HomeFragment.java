@@ -60,6 +60,7 @@ public class HomeFragment extends Fragment {
                 pieChart = view.findViewById(R.id.piechart);
 
         initPie();
+
         notebt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

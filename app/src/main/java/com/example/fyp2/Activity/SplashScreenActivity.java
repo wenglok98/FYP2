@@ -10,6 +10,7 @@ import android.os.Looper;
 import com.example.fyp2.Activity.LoginActivity;
 import com.example.fyp2.BaseApp.AppManager;
 import com.example.fyp2.BaseApp.BaseActivity;
+import com.example.fyp2.LangUtils;
 import com.example.fyp2.R;
 
 import java.util.Locale;
@@ -23,7 +24,7 @@ public class SplashScreenActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        loadLocale();
+
         mPvGithub = (ParticleView) findViewById(R.id.pv_github);
 
 
@@ -37,6 +38,7 @@ public class SplashScreenActivity extends BaseActivity {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+
                         AppManager.getAppManager().ToOtherActivity(LoginActivity.class);
                         finishAffinity();
 //                        Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
@@ -49,21 +51,21 @@ public class SplashScreenActivity extends BaseActivity {
         });
     }
 
-    public void setLocale(String lang) {
-        Locale locale = new Locale(lang);
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-        SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
-        editor.putString("My_Lang", lang);
-        editor.apply();
-    }
-
-    public void loadLocale() {
-        SharedPreferences prefs = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
-        String language = prefs.getString("My_Lang", "");
-        String lang2 = "zh";
-        setLocale("zh");
-    }
+//    public void setLocale(String lang) {
+//        Locale locale = new Locale(lang);
+//        Locale.setDefault(locale);
+//        Configuration config = new Configuration();
+//        config.locale = locale;
+//        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+//        SharedPreferences.Editor editor = getSharedPreferences("Settings", MODE_PRIVATE).edit();
+//        editor.putString("My_Lang", lang);
+//        editor.apply();
+//    }
+//
+//    public void loadLocale() {
+//        SharedPreferences prefs = getSharedPreferences("Settings", Activity.MODE_PRIVATE);
+//        String language = prefs.getString("My_Lang", "");
+//        String lang2 = "zh";
+//        setLocale("en");
+//    }
 }

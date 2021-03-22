@@ -138,7 +138,13 @@ public class MainActivity extends BaseActivity {
                         return fragmentList.size();
                     }
                 };
-                mViewPager.setAdapter(fragmentPagerAdapter);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mViewPager.setAdapter(fragmentPagerAdapter);
+
+                    }
+                });
 
                 mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                     @Override
@@ -160,7 +166,13 @@ public class MainActivity extends BaseActivity {
                     }
                 });
 
-                mCenterNavigationTabStrip.setViewPager(mViewPager, 0);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mCenterNavigationTabStrip.setViewPager(mViewPager, 0);
+
+                    }
+                });
 
 
                 mCenterNavigationTabStrip.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {

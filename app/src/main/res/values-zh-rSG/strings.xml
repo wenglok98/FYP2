@@ -24,5 +24,7 @@
     <string name="student">学生</string>
     <string name="no_student">暂时还没有学生注册此科目</string>
     <string name="enroll_bt">注册</string>
-
+    <string name="changeLanguageTips">你确定要换语言吗？</string>
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
 </resources>

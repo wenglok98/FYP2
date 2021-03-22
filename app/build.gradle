@@ -32,8 +32,13 @@ android {
     }
 }
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'realm-android'
+
+
 repositories {
-    maven { url 'https://jitpack.io' }
+    maven { url 'https://jitpack.io'
+
+    }
 }
 dependencies {
     implementation 'com.squareup.picasso:picasso:2.5.0'

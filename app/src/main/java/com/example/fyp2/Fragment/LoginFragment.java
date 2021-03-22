@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.fyp2.Activity.MainActivity;
+import com.example.fyp2.LangUtils;
 import com.example.fyp2.R;
 import com.example.fyp2.Utils.SharedPreferenceUtil;
 import com.example.fyp2.Utils.Util;
@@ -35,6 +36,7 @@ public class LoginFragment extends Fragment {
     private TextInputLayout usernameLayout, passwordLayout;
     String UID;
     FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+
     public LoginFragment() {
         // Required empty public constructor
     }
@@ -72,6 +74,7 @@ public class LoginFragment extends Fragment {
         transitionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 checkValidate();
 
             }
@@ -112,15 +115,14 @@ public class LoginFragment extends Fragment {
                         }
                     });
 
-                }
-                else
-                {
+                } else {
                     transitionButton.stopAnimation(TransitionButton.StopAnimationStyle.SHAKE, null);
-                    Snackbar.make(getView(),task.getException().getMessage(), BaseTransientBottomBar.LENGTH_SHORT).show();
+                    Snackbar.make(getView(), task.getException().getMessage(), BaseTransientBottomBar.LENGTH_SHORT).show();
                 }
             }
         });
     }
+
     private void retrievename() {
         DocumentReference documentReference = fStore.collection("Users").document(UID);
         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

@@ -5,7 +5,7 @@ public class EnrollClass {
     String timeStamp;
     String subjectCode;
     String studyMinutes;
-String subjectType;
+    String subjectType;
 
     public String getSubjectType() {
         return subjectType;

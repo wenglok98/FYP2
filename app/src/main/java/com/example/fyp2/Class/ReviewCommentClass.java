@@ -16,6 +16,7 @@ public class ReviewCommentClass {
         this.leaveCommentDate = leaveCommentDate;
     }
 
+
     public String getSubjectCode() {
         return subjectCode;
     }

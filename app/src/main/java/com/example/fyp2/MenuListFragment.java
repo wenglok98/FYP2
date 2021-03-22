@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.fyp2.Activity.EnrollNewSubject;
 import com.example.fyp2.Activity.LoginActivity;
 import com.example.fyp2.Activity.ProfileActivity;
+import com.example.fyp2.Activity.SettingActivity;
 import com.example.fyp2.Activity.studentEnroll;
 import com.example.fyp2.BaseApp.AppManager;
 import com.example.fyp2.Utils.SharedPreferenceUtil;
@@ -105,6 +106,9 @@ public class MenuListFragment extends Fragment {
 
                     case (R.id.Enrollment):
                         AppManager.getAppManager().ToOtherActivity(studentEnroll.class);
+                        break;
+                    case (R.id.menu_settings):
+                        AppManager.getAppManager().ToOtherActivity(SettingActivity.class);
                         break;
 
                 }

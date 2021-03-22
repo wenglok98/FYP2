@@ -11,7 +11,7 @@
     <string name="setting">Settings</string>
     <string name="logout">Logout</string>
     <string name="about">About</string>
-    <string name="username">Username</string>
+    <string name="username">Username from en</string>
     <string name="password">Password</string>
     <string name="login_bt">Login</string>
     <string name="login_top"><b><u>Login</u></b></string>
@@ -24,4 +24,8 @@
     <string name="student">Students</string>
     <string name="no_student">No Student Enrolled in this subject yet</string>
     <string name="enroll_bt">Enroll</string>
+
+    <string name="changeLanguageTips">Are You Sure , You want to change Language?</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
 </resources>

@@ -14,6 +14,8 @@ import android.widget.EditText;
 
 import androidx.fragment.app.FragmentActivity;
 
+import com.example.fyp2.LangUtils;
+
 //import com.xeersoft.csmdemo.util.SharedPreferenceUtil;
 
 
@@ -35,8 +37,17 @@ public class BaseActivity extends FragmentActivity
     {
         super.onCreate(savedInstanceState);
 
+
+
+//        LangUtils langUtils;
+//        langUtils = new LangUtils();
+//        langUtils.checkLang(getApplicationContext());
         AppManager.getAppManager().addActivity(this);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        LangUtils langUtils;
+        langUtils = new LangUtils();
+        langUtils.checkLang(this);
         //透明状态栏
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         //透明导航栏
