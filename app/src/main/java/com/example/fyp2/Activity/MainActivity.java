@@ -1,19 +1,21 @@
 package com.example.fyp2.Activity;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.SharedPreferences;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 
+import com.applozic.mobicomkit.Applozic;
+import com.applozic.mobicomkit.api.account.register.RegistrationResponse;
+import com.applozic.mobicomkit.api.account.user.User;
+import com.applozic.mobicomkit.listners.AlLoginHandler;
+import com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity;
 import com.example.fyp2.BaseApp.BaseActivity;
 import com.example.fyp2.Fragment.ForecastFragment;
 import com.example.fyp2.Fragment.HomeFragment;
@@ -22,19 +24,15 @@ import com.example.fyp2.Fragment.MessageFragment;
 import com.example.fyp2.R;
 import com.example.fyp2.Utils.SharedPreferenceUtil;
 import com.gigamole.navigationtabstrip.NavigationTabStrip;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.os.Build.ID;
 
 public class MainActivity extends BaseActivity {
     private ViewPager mViewPager;
@@ -62,6 +60,7 @@ public class MainActivity extends BaseActivity {
 
         initUI();
         setUI();
+        setupChat();
 
     }
 
@@ -236,6 +235,34 @@ public class MainActivity extends BaseActivity {
             }
         }).start();
 
+
+    }
+
+    private void setupChat() {
+
+        User user = new User();
+        user.setUserId(UID);
+        user.setDisplayName(SharedPreferenceUtil.getFromPrefs(getApplicationContext(), "username", ""));
+        user.setEmail("");
+        user.setAuthenticationTypeId(User.AuthenticationType.APPLOZIC.getValue());
+        user.setPassword("");
+        user.setImageLink("");
+
+        Applozic.connectUser(MainActivity.this, user, new AlLoginHandler() {
+            @Override
+            public void onSuccess(RegistrationResponse registrationResponse, Context context) {
+                Applozic.init(context, "1utar22828c7bc148e8d4fb812694420cb571b");
+                Intent intent = new Intent(MainActivity.this, ConversationActivity.class);
+                startActivity(intent);
+
+            }
+
+            @Override
+            public void onFailure(RegistrationResponse registrationResponse, Exception exception) {
+
+
+            }
+        });
 
     }
 
