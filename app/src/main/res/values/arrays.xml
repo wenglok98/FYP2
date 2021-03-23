@@ -4,7 +4,6 @@
     <string-array name="titles">
         <item>@string/home</item>
         <item>@string/forecast</item>
-        <item>@string/message</item>
     </string-array>
     <string-array name="loginignup">
         <item>@string/login_top</item>

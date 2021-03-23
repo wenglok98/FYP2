@@ -15,6 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.applozic.mobicomkit.uiwidgets.conversation.ConversationUIService;
+import com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity;
 import com.bumptech.glide.Glide;
 import com.example.fyp2.Activity.SubjectDetailActivity;
 import com.example.fyp2.BaseApp.AppManager;
@@ -61,7 +63,18 @@ public class StudentEnrolledAdapter extends RecyclerView.Adapter<StudentEnrolled
         holder.enrollemntDate.setText("Enrolled Date : " + enrolledTimeList.get(position).toString());
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
+holder.itemView.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(context, ConversationActivity.class);
+        intent.putExtra(ConversationUIService.USER_ID, sb.getUserid());
+        intent.putExtra(ConversationUIService.DISPLAY_NAME, sb.getUsername()); //put it for displaying the title.
+        intent.putExtra(ConversationUIService.TAKE_ORDER,true); //Skip chat list for showing on back press
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
+        context.startActivity(intent);
+    }
+});
         storageReference.child("images/" + sb.getUserid()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {

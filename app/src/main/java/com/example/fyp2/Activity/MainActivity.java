@@ -87,7 +87,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void run() {
 
-                mViewPager.setOffscreenPageLimit(3);
+                mViewPager.setOffscreenPageLimit(2);
                 mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                     @Override
                     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -123,7 +123,7 @@ public class MainActivity extends BaseActivity {
                 fragmentList = new ArrayList<Fragment>();
                 fragmentList.add(new HomeFragment());
                 fragmentList.add(new ForecastFragment());
-                fragmentList.add(new MessageFragment());
+//                fragmentList.add(new MessageFragment());
 
                 //为Viewpager设置Adapter
                 FragmentPagerAdapter fragmentPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
@@ -252,8 +252,8 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onSuccess(RegistrationResponse registrationResponse, Context context) {
                 Applozic.init(context, "1utar22828c7bc148e8d4fb812694420cb571b");
-                Intent intent = new Intent(MainActivity.this, ConversationActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(MainActivity.this, ConversationActivity.class);
+//                startActivity(intent);
 
             }
 
