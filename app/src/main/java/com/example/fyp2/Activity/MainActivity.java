@@ -10,6 +10,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.applozic.mobicomkit.Applozic;
 import com.applozic.mobicomkit.api.account.register.RegistrationResponse;
@@ -43,6 +45,7 @@ public class MainActivity extends BaseActivity {
     FirebaseAuth fAuth;
     FirebaseFirestore fStore = FirebaseFirestore.getInstance();
     String UID;
+    ImageView chat_im;
     Toolbar toolbar;
 
     @Override
@@ -53,6 +56,16 @@ public class MainActivity extends BaseActivity {
 
         //Re-enabled
         UID = fAuth.getCurrentUser().getUid();
+
+        chat_im = findViewById(R.id.chat_im);
+
+        chat_im.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                                Intent intent = new Intent(MainActivity.this, ConversationActivity.class);
+                startActivity(intent);
+            }
+        });
 //
 //        UID = "Testing ID";
 

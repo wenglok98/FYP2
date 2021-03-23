@@ -5,6 +5,8 @@ import androidx.annotation.StyleRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.ViewCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.animation.AnimatorSet;
@@ -27,11 +29,20 @@ import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import com.example.fyp2.Cards.SliderAdapter;
+import com.example.fyp2.Class.EnrollClass;
+import com.example.fyp2.EnrolledSubjectAdapter;
 import com.example.fyp2.R;
 import com.example.fyp2.Utils.DecodeBitmapTask;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.ramotion.cardslider.CardSliderLayoutManager;
 import com.ramotion.cardslider.CardSnapHelper;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class MainSubjectActivity extends AppCompatActivity {
@@ -39,13 +50,20 @@ public class MainSubjectActivity extends AppCompatActivity {
     private final int[][] dotCoords = new int[5][2];
     private final int[] pics = {R.drawable.p1};
     private final int[] maps = {R.drawable.map_paris};
-    private final int[] descriptions = {1,2,3,4,5};
+    private final int[] descriptions = {1, 2, 3, 4, 5};
     private final String[] countries = {"PARIS"};
+    ArrayList<String> subjectCode = new ArrayList<>();
+    ArrayList<String> subjectName = new ArrayList<>();
+    ArrayList<String> subjectType = new ArrayList<>();
+    ArrayList<String> studyTime = new ArrayList<>();
     private final String[] places = {"The Louvre"};
     private final String[] temperatures = {"21°C"};
     private final String[] times = {"Aug 1 - Dec 15    7:00-18:00"};
+    FirebaseAuth fAuth;
+    FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+    String UID;
 
-    private final SliderAdapter sliderAdapter = new SliderAdapter(pics, 2, new OnCardClickListener());
+SliderAdapter sliderAdapter;
 
     private CardSliderLayoutManager layoutManger;
     private RecyclerView recyclerView;
@@ -70,11 +88,8 @@ public class MainSubjectActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_subject);
+initfromFirebase();
 
-        initRecyclerView();
-        initCountryText();
-        initSwitchers();
-        initGreenDot();
     }
 
     private void initRecyclerView() {
@@ -107,15 +122,33 @@ public class MainSubjectActivity extends AppCompatActivity {
     private void initSwitchers() {
         temperatureSwitcher = (TextSwitcher) findViewById(R.id.ts_temperature);
         temperatureSwitcher.setFactory(new TextViewFactory(R.style.TemperatureTextView, true));
-        temperatureSwitcher.setCurrentText(temperatures[0]);
+        try {
+            temperatureSwitcher.setCurrentText(subjectType.get(0));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+//        temperatureSwitcher.setCurrentText(temperatures[0]);
 
         placeSwitcher = (TextSwitcher) findViewById(R.id.ts_place);
         placeSwitcher.setFactory(new TextViewFactory(R.style.PlaceTextView, false));
-        placeSwitcher.setCurrentText(places[0]);
+//        placeSwitcher.setCurrentText(places[0]);
+        try {
+            placeSwitcher.setCurrentText(subjectName.get(0));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         clockSwitcher = (TextSwitcher) findViewById(R.id.ts_clock);
         clockSwitcher.setFactory(new TextViewFactory(R.style.ClockTextView, false));
         clockSwitcher.setCurrentText(times[0]);
+        try {
+            clockSwitcher.setCurrentText(studyTime.get(0));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         descriptionsSwitcher = (TextSwitcher) findViewById(R.id.ts_description);
         descriptionsSwitcher.setInAnimation(this, android.R.anim.fade_in);
@@ -132,7 +165,7 @@ public class MainSubjectActivity extends AppCompatActivity {
         mapLoadListener = new DecodeBitmapTask.Listener() {
             @Override
             public void onPostExecuted(Bitmap bitmap) {
-                ((ImageView)mapSwitcher.getNextView()).setImageBitmap(bitmap);
+                ((ImageView) mapSwitcher.getNextView()).setImageBitmap(bitmap);
                 mapSwitcher.showNext();
             }
         };
@@ -147,7 +180,13 @@ public class MainSubjectActivity extends AppCompatActivity {
 
         country1TextView.setX(countryOffset1);
         country2TextView.setX(countryOffset2);
-        country1TextView.setText(countries[0]);
+//        country1TextView.setText(countries[0]);
+        try {
+            country1TextView.setText(subjectCode.get(0));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         country2TextView.setAlpha(0f);
 
 //        country1TextView.setTypeface(Typeface.createFromAsset(getAssets(), "open-sans-extrabold.ttf"));
@@ -217,8 +256,8 @@ public class MainSubjectActivity extends AppCompatActivity {
     }
 
     private void onActiveCardChange(int pos) {
-        int animH[] = new int[] {R.anim.slide_in_right, R.anim.slide_out_left};
-        int animV[] = new int[] {R.anim.slide_in_top, R.anim.slide_out_bottom};
+        int animH[] = new int[]{R.anim.slide_in_right, R.anim.slide_out_left};
+        int animV[] = new int[]{R.anim.slide_in_top, R.anim.slide_out_bottom};
 
         final boolean left2right = pos < currentPosition;
         if (left2right) {
@@ -229,21 +268,27 @@ public class MainSubjectActivity extends AppCompatActivity {
             animV[1] = R.anim.slide_out_top;
         }
 
-        setCountryText(countries[pos % countries.length], left2right);
+        setCountryText
+                (
+                        subjectCode.get(pos % subjectCode.size())
+//                        countries[pos % countries.length]
+                        , left2right);
 
         temperatureSwitcher.setInAnimation(MainSubjectActivity.this, animH[0]);
         temperatureSwitcher.setOutAnimation(MainSubjectActivity.this, animH[1]);
         temperatureSwitcher.setText(temperatures[pos % temperatures.length]);
+        temperatureSwitcher.setText(subjectType.get(pos % subjectType.size()));
 
         placeSwitcher.setInAnimation(MainSubjectActivity.this, animV[0]);
         placeSwitcher.setOutAnimation(MainSubjectActivity.this, animV[1]);
-        placeSwitcher.setText(places[pos % places.length]);
+//        placeSwitcher.setText(places[pos % places.length]);
+        placeSwitcher.setText(subjectName.get(pos % subjectName.size()));
 
         clockSwitcher.setInAnimation(MainSubjectActivity.this, animV[0]);
         clockSwitcher.setOutAnimation(MainSubjectActivity.this, animV[1]);
         clockSwitcher.setText(times[pos % times.length]);
+        clockSwitcher.setText(studyTime.get(pos % studyTime.size()));
 
-        descriptionsSwitcher.setText("testing");
 
         showMap(maps[pos % maps.length]);
 
@@ -267,7 +312,7 @@ public class MainSubjectActivity extends AppCompatActivity {
         decodeMapBitmapTask.execute();
     }
 
-    private class TextViewFactory implements  ViewSwitcher.ViewFactory {
+    private class TextViewFactory implements ViewSwitcher.ViewFactory {
 
         @StyleRes
         final int styleId;
@@ -314,7 +359,7 @@ public class MainSubjectActivity extends AppCompatActivity {
     private class OnCardClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            final CardSliderLayoutManager lm =  (CardSliderLayoutManager) recyclerView.getLayoutManager();
+            final CardSliderLayoutManager lm = (CardSliderLayoutManager) recyclerView.getLayoutManager();
 
             if (lm.isSmoothScrolling()) {
                 return;
@@ -345,5 +390,39 @@ public class MainSubjectActivity extends AppCompatActivity {
             }
         }
     }
+    private void initfromFirebase() {
+        fAuth = FirebaseAuth.getInstance();
+        UID = fAuth.getCurrentUser().getUid();
+
+        Task<QuerySnapshot> docRef = fStore.collection("Enrollment").whereEqualTo("studentID", UID).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                    EnrollClass enrollClass = new EnrollClass();
+                    enrollClass.setTimeStamp(documentSnapshot.get("timeStamp").toString());
+                    enrollClass.setSubjectCode(documentSnapshot.get("subjectCode").toString());
+                    enrollClass.setStudyMinutes(documentSnapshot.get("studyMinutes").toString());
+                    enrollClass.setStudentID(documentSnapshot.get("studentID").toString());
+                    enrollClass.setSubjectType(documentSnapshot.get("subjectType").toString());
+
+                    subjectCode.add((documentSnapshot.get("subjectCode").toString()));
+                    subjectName.add((documentSnapshot.get("subjectCode").toString()));
+                    subjectType.add((documentSnapshot.get("subjectType").toString()));
+                    studyTime.add((documentSnapshot.get("studyMinutes").toString()));
+
+                }
+//                sliderAdapter.notifyDataSetChanged();
+                sliderAdapter= new SliderAdapter(pics, subjectCode.size(), new OnCardClickListener());
+
+                initRecyclerView();
+                initCountryText();
+                initSwitchers();
+                initGreenDot();
+
+            }
+        });
+
+    }
+
 
 }

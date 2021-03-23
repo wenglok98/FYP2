@@ -32,16 +32,17 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting);
+
+        activitySettingBinding = ActivitySettingBinding.inflate(getLayoutInflater());
+        View view = activitySettingBinding.getRoot();
+        setContentView(view);
+
         language.add("English");
         language.add("Chinese");
         languageCode.add("en");
         languageCode.add("zh");
         initAppTitle();
 
-        activitySettingBinding = ActivitySettingBinding.inflate(getLayoutInflater());
-        View view = activitySettingBinding.getRoot();
-        setContentView(view);
         initLang();
 
         ArrayAdapter<String> test = new ArrayAdapter<>(getApplication(), R.layout.dropdown_menu_popup_item, language);
