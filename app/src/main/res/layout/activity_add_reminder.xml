@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.AddReminder">
+
+    <include
+        android:id="@+id/apptitleoutlet"
+        layout="@layout/app_title"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentTop="true" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/loclayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/apptitleoutlet"
+        android:layout_marginLeft="20dp"
+
+
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginRight="20dp"
+        android:hint="Subject Code">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/addReminder_SubjectCode_ACTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:inputType="none" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/loclayout2"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/loclayout"
+        android:layout_marginLeft="20dp"
+
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginRight="20dp"
+        android:hint="Type">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/addReminder_Type_ACTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:inputType="none" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/timePicker_BT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/loclayout2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:onClick="showTimePickerDialog"
+        android:text="Pick a time"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/datePicker_BT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/timePicker_BT"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_20sdp"
+
+        android:onClick="showDatePickerDialog"
+        android:text="Pick a date"
+        android:textColor="@color/white" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/add_Reminder_BT"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+
+        android:elevation="@dimen/_50sdp"
+        android:text="Add Reminder"
+        android:textColor="@color/black"
+        app:cornerRadius="@dimen/_15sdp"
+        app:strokeColor="@color/black" />
+
+
+</RelativeLayout>

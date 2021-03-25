@@ -108,6 +108,7 @@ public class SubjectDetailActivity extends BaseActivity {
                 enrollClass.setSubjectCode(i.getStringExtra("subjectCode"));
                 enrollClass.setTimeStamp(strDate);
                 enrollClass.setSubjectType(i.getStringExtra("subjectType"));
+                enrollClass.setSubjectName(subjectName);
                 enrolltofirebase.set(enrollClass).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {

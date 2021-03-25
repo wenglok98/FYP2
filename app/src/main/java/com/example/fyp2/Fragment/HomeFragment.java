@@ -15,6 +15,7 @@ import com.coorchice.library.SuperTextView;
 import com.coorchice.library.gifdecoder.GifDrawable;
 import com.coorchice.library.utils.STVUtils;
 import com.coorchice.library.utils.ThreadPool;
+import com.example.fyp2.Activity.AddReminder;
 import com.example.fyp2.Activity.MainSubjectActivity;
 import com.example.fyp2.Activity.NotesActivity;
 import com.example.fyp2.BaseApp.AppManager;
@@ -35,6 +36,7 @@ public class HomeFragment extends Fragment {
 
     private SuperTextView stv_4;
     private SuperTextView notebt;
+    private SuperTextView reminder;
     private LinearLayout ll;
     PieChart pieChart;
 
@@ -58,11 +60,18 @@ public class HomeFragment extends Fragment {
                 stv_4 = (SuperTextView) view.findViewById(R.id.stv_4);
                 ll = view.findViewById(R.id.homell);
                 notebt = (SuperTextView) view.findViewById(R.id.notesbt);
+                reminder = (SuperTextView) view.findViewById(R.id.reminder);
                 pieChart = view.findViewById(R.id.piechart);
 
         initPie();
 
+reminder.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        AppManager.getAppManager().ToOtherActivity(AddReminder.class);
 
+    }
+});
         stv_4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

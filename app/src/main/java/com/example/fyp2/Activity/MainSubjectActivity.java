@@ -30,12 +30,17 @@ import android.widget.ViewSwitcher;
 
 import com.example.fyp2.Cards.SliderAdapter;
 import com.example.fyp2.Class.EnrollClass;
+import com.example.fyp2.Class.UsersClass;
 import com.example.fyp2.EnrolledSubjectAdapter;
 import com.example.fyp2.R;
+import com.example.fyp2.StudentEnrolledAdapter;
 import com.example.fyp2.Utils.DecodeBitmapTask;
+import com.example.fyp2.databinding.ActivityMainSubjectBinding;
+import com.example.fyp2.databinding.ActivitySubjectDetailBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -63,7 +68,7 @@ public class MainSubjectActivity extends AppCompatActivity {
     FirebaseFirestore fStore = FirebaseFirestore.getInstance();
     String UID;
 
-SliderAdapter sliderAdapter;
+    SliderAdapter sliderAdapter;
 
     private CardSliderLayoutManager layoutManger;
     private RecyclerView recyclerView;
@@ -80,15 +85,19 @@ SliderAdapter sliderAdapter;
     private int countryOffset2;
     private long countryAnimDuration;
     private int currentPosition;
-
+ActivityMainSubjectBinding activityMainSubjectBinding;
     private DecodeBitmapTask decodeMapBitmapTask;
     private DecodeBitmapTask.Listener mapLoadListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_subject);
-initfromFirebase();
+        activityMainSubjectBinding = ActivityMainSubjectBinding.inflate(getLayoutInflater());
+        View view = activityMainSubjectBinding.getRoot();
+        setContentView(view);
+
+        initfromFirebase();
+        initAppTitle();
 
     }
 
@@ -142,9 +151,9 @@ initfromFirebase();
 
         clockSwitcher = (TextSwitcher) findViewById(R.id.ts_clock);
         clockSwitcher.setFactory(new TextViewFactory(R.style.ClockTextView, false));
-        clockSwitcher.setCurrentText(times[0]);
+//        clockSwitcher.setCurrentText(times[0]);
         try {
-            clockSwitcher.setCurrentText(studyTime.get(0));
+            clockSwitcher.setCurrentText("Study Time : " + studyTime.get(0) + " Minutes ");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -154,7 +163,7 @@ initfromFirebase();
         descriptionsSwitcher.setInAnimation(this, android.R.anim.fade_in);
         descriptionsSwitcher.setOutAnimation(this, android.R.anim.fade_out);
         descriptionsSwitcher.setFactory(new TextViewFactory(R.style.DescriptionTextView, false));
-        descriptionsSwitcher.setCurrentText("12312312");
+//        descriptionsSwitcher.setCurrentText("12312312");
 
         mapSwitcher = (ImageSwitcher) findViewById(R.id.ts_map);
         mapSwitcher.setInAnimation(this, R.anim.fade_in);
@@ -282,14 +291,23 @@ initfromFirebase();
         placeSwitcher.setInAnimation(MainSubjectActivity.this, animV[0]);
         placeSwitcher.setOutAnimation(MainSubjectActivity.this, animV[1]);
 //        placeSwitcher.setText(places[pos % places.length]);
-        placeSwitcher.setText(subjectName.get(pos % subjectName.size()));
+        try {
+            placeSwitcher.setText(subjectName.get(pos % subjectName.size()));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         clockSwitcher.setInAnimation(MainSubjectActivity.this, animV[0]);
         clockSwitcher.setOutAnimation(MainSubjectActivity.this, animV[1]);
         clockSwitcher.setText(times[pos % times.length]);
-        clockSwitcher.setText(studyTime.get(pos % studyTime.size()));
+
+        clockSwitcher.setCurrentText("Study Time : " + studyTime.get(pos % studyTime.size()) + " Minutes ");
+
+//        clockSwitcher.setText(studyTime.get(pos % studyTime.size()));
 
 
+        initStudentEnrolled( subjectCode.get(pos % subjectCode.size()));
         showMap(maps[pos % maps.length]);
 
         ViewCompat.animate(greenDot)
@@ -374,15 +392,24 @@ initfromFirebase();
             if (clickedPosition == activeCardPosition) {
                 final Intent intent = new Intent(MainSubjectActivity.this, DetailsActivity.class);
                 intent.putExtra(DetailsActivity.BUNDLE_IMAGE_ID, pics[activeCardPosition % pics.length]);
-                Toast.makeText(MainSubjectActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainSubjectActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
+
+
+                Intent intent1 = new Intent(getApplicationContext(),ViewSubjectPDFList.class);
+
+                intent1.putExtra("subjectCode", subjectCode.get(activeCardPosition) );
+                intent1.putExtra("studyTime", studyTime.get(activeCardPosition) );
+                String asdasd = subjectCode.get(activeCardPosition);
+                Toast.makeText(MainSubjectActivity.this,subjectCode.get(activeCardPosition), Toast.LENGTH_SHORT).show();
+
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-                    startActivity(intent);
+                    startActivity(intent1);
                 } else {
                     final CardView cardView = (CardView) view;
                     final View sharedView = cardView.getChildAt(cardView.getChildCount() - 1);
                     final ActivityOptions options = ActivityOptions
                             .makeSceneTransitionAnimation(MainSubjectActivity.this, sharedView, "shared");
-                    startActivity(intent, options.toBundle());
+                    startActivity(intent1, options.toBundle());
                 }
             } else if (clickedPosition > activeCardPosition) {
                 recyclerView.smoothScrollToPosition(clickedPosition);
@@ -390,6 +417,7 @@ initfromFirebase();
             }
         }
     }
+
     private void initfromFirebase() {
         fAuth = FirebaseAuth.getInstance();
         UID = fAuth.getCurrentUser().getUid();
@@ -406,23 +434,109 @@ initfromFirebase();
                     enrollClass.setSubjectType(documentSnapshot.get("subjectType").toString());
 
                     subjectCode.add((documentSnapshot.get("subjectCode").toString()));
-                    subjectName.add((documentSnapshot.get("subjectCode").toString()));
+                    try {
+                        subjectName.add((documentSnapshot.get("subjectName").toString()));
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                     subjectType.add((documentSnapshot.get("subjectType").toString()));
                     studyTime.add((documentSnapshot.get("studyMinutes").toString()));
 
                 }
 //                sliderAdapter.notifyDataSetChanged();
-                sliderAdapter= new SliderAdapter(pics, subjectCode.size(), new OnCardClickListener());
+                sliderAdapter = new SliderAdapter(pics, subjectCode.size(), new OnCardClickListener());
 
                 initRecyclerView();
                 initCountryText();
                 initSwitchers();
                 initGreenDot();
+                initStudentEnrolled(subjectCode.get(0));
 
             }
         });
 
     }
 
+    private void initAppTitle() {
+        ((TextView) findViewById(R.id.app_title_tv)).setText("Subjects");
+        findViewById(R.id.btn_back).setVisibility(View.VISIBLE);
+        findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                adddata();
+                onBackPressed();
+//                Toast.makeText(SubjectDetailActivity.this, String.valueOf(activitySubjectDetailBinding.ratingBar.getRating()), Toast.LENGTH_SHORT).show();
+            }
+        });
+        findViewById(R.id.btn_add_subject).setVisibility(View.INVISIBLE);
+    }
+
+
+    private void getStudnetInformation(ArrayList<String> arrayList, ArrayList<String> enrolltimelist1) {
+        ArrayList<UsersClass> usersClassArrayList = new ArrayList<>();
+        ArrayList<String> enrolltimelist = enrolltimelist1;
+
+        StudentEnrolledAdapter studentEnrolledAdapter = new StudentEnrolledAdapter(getApplication(), usersClassArrayList, enrolltimelist);
+        activityMainSubjectBinding.peopleRecycler.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        activityMainSubjectBinding.peopleRecycler.setAdapter(studentEnrolledAdapter);
+        activityMainSubjectBinding.peopleRecycler.addItemDecoration(new DividerItemDecoration(activityMainSubjectBinding.peopleRecycler.getContext(), DividerItemDecoration.VERTICAL));
+
+        ArrayList<String> studentIDArrayList = arrayList;
+        for (int i = 0; i < studentIDArrayList.size(); i++) {
+            Task<DocumentSnapshot> documentReference = fStore.collection("Users")
+                    .document(studentIDArrayList.get(i))
+                    .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            UsersClass tempUser = new UsersClass();
+                            tempUser.setUserAddress(documentSnapshot.getString("userAddress"));
+                            tempUser.setUserCgpa(documentSnapshot.getString("userCgpa"));
+                            tempUser.setUseremail(documentSnapshot.getString("useremail"));
+//                            tempUser.setUserGender(documentSnapshot.getString(""));
+                            tempUser.setUserGpa(documentSnapshot.getString("userGpa"));
+                            tempUser.setUserid(documentSnapshot.getString("userid"));
+                            tempUser.setUsername(documentSnapshot.getString("username"));
+                            tempUser.setUserPhone(documentSnapshot.getString("userPhone"));
+
+                            usersClassArrayList.add(tempUser);
+
+
+                            studentEnrolledAdapter.notifyDataSetChanged();
+
+
+                        }
+                    });
+        }
+
+
+    }
+
+
+    private void initStudentEnrolled(String scode) {
+        Intent i = getIntent();
+        ArrayList<String> studentIDArrayList = new ArrayList<String>();
+        ArrayList<String> studentEnrolledTimeList = new ArrayList<String>();
+        Task<QuerySnapshot> documentReference = fStore.collection("Enrollment")
+                .whereEqualTo("subjectCode", scode)
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                            studentIDArrayList.add(documentSnapshot.getString("studentID"));
+                            studentEnrolledTimeList.add(documentSnapshot.getString("timeStamp"));
+
+
+                        }
+
+                        getStudnetInformation(studentIDArrayList, studentEnrolledTimeList);
+
+
+                    }
+                });
+
+
+    }
 
 }

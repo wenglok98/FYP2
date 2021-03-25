@@ -81,6 +81,7 @@
                 android:layout_height="138.75dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="@dimen/_10sdp"
+                android:id="@+id/reminder"
                 android:layout_weight="1"
                 app:stv_corner="20dp"
                 app:stv_drawableAsBackground="true"

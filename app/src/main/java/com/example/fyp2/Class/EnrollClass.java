@@ -6,6 +6,15 @@ public class EnrollClass {
     String subjectCode;
     String studyMinutes;
     String subjectType;
+    String subjectName;
+
+    public String getSubjectName() {
+        return subjectName;
+    }
+
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
+    }
 
     public String getSubjectType() {
         return subjectType;

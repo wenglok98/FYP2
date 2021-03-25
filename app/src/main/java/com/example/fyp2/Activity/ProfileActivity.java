@@ -186,14 +186,17 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void initAppTitle() {
-        ((TextView) findViewById(R.id.app_title_tv)).setText("Profile Data ");
+        ((TextView) findViewById(R.id.app_title_tv)).setText("Profile Data");
         findViewById(R.id.btn_back).setVisibility(View.VISIBLE);
         findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                adddata();
                 onBackPressed();
+//                Toast.makeText(SubjectDetailActivity.this, String.valueOf(activitySubjectDetailBinding.ratingBar.getRating()), Toast.LENGTH_SHORT).show();
             }
         });
+        findViewById(R.id.btn_add_subject).setVisibility(View.INVISIBLE);
 
 
     }
