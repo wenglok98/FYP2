@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.fyp2.BaseApp.AppManager;
+import com.example.fyp2.BaseApp.BaseActivity;
 import com.example.fyp2.Class.EnrollClass;
 import com.example.fyp2.EnrolledSubjectAdapter;
 import com.example.fyp2.R;
@@ -49,7 +50,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
-public class AddReminder extends AppCompatActivity {
+public class AddReminder extends BaseActivity {
     ActivityAddReminderBinding activityMainSubjectBinding;
     FirebaseFirestore fStore = FirebaseFirestore.getInstance();
     ArrayList<String> SubjectData = new ArrayList<>();

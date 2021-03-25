@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.fyp2.BaseApp.BaseActivity;
 import com.example.fyp2.Class.SubjectClassModel;
 import com.example.fyp2.R;
 import com.example.fyp2.SubjectListAdapter;
@@ -42,7 +43,7 @@ import java.util.List;
 
 import cc.solart.wave.WaveSideBarView;
 
-public class EnrollNewSubject extends AppCompatActivity {
+public class EnrollNewSubject extends BaseActivity {
     ActivityEnrollNewSubjectBinding activityEnrollNewSubjectBinding;
     EnrollSubjectViewModel enrollSubjectViewModel;
     ArrayList<SubjectClassModel> arrayList = new ArrayList<>();

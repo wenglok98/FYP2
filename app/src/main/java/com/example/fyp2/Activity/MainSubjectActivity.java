@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
+import com.example.fyp2.BaseApp.BaseActivity;
 import com.example.fyp2.Cards.SliderAdapter;
 import com.example.fyp2.Class.EnrollClass;
 import com.example.fyp2.Class.UsersClass;
@@ -50,7 +51,7 @@ import com.ramotion.cardslider.CardSnapHelper;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class MainSubjectActivity extends AppCompatActivity {
+public class MainSubjectActivity extends BaseActivity {
 
     private final int[][] dotCoords = new int[5][2];
     private final int[] pics = {R.drawable.p1};

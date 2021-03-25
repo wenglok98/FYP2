@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.fyp2.BaseApp.BaseActivity;
 import com.example.fyp2.R;
 import com.example.fyp2.Utils.Util;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -31,7 +32,7 @@ import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-public class NotesActivity extends AppCompatActivity {
+public class NotesActivity extends BaseActivity {
 
     ImageView im;
     TextView tv;

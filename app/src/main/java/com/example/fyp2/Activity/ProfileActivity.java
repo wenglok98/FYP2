@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.fyp2.BaseApp.AppManager;
+import com.example.fyp2.BaseApp.BaseActivity;
 import com.example.fyp2.CircleTransformation;
 import com.example.fyp2.Class.UsersClass;
 import com.example.fyp2.R;
@@ -41,7 +42,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends BaseActivity {
 
     ActivityProfileBinding profileBinding;
     Animation midtoleft, midtoright, lefttomid, righttomid;

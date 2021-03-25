@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.fyp2.BaseApp.BaseActivity;
 import com.example.fyp2.R;
 import com.example.fyp2.Utils.SharedPreferenceUtil;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -26,7 +27,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PDFView extends AppCompatActivity {
+public class PDFView extends BaseActivity {
     FirebaseFirestore fstore = FirebaseFirestore.getInstance();
     StorageReference mStorageRef;
     com.github.barteksc.pdfviewer.PDFView book1;

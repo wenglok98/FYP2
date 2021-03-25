@@ -9,6 +9,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.fyp2.BaseApp.BaseActivity;
 import com.example.fyp2.R;
 import com.example.fyp2.Utils.DecodeBitmapTask;
 
@@ -16,7 +17,7 @@ import com.example.fyp2.Utils.DecodeBitmapTask;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-public class DetailsActivity extends AppCompatActivity implements DecodeBitmapTask.Listener {
+public class DetailsActivity extends BaseActivity implements DecodeBitmapTask.Listener {
 
     static final String BUNDLE_IMAGE_ID = "BUNDLE_IMAGE_ID";
 

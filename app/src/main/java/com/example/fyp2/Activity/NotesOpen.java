@@ -5,11 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.fyp2.BaseApp.BaseActivity;
 import com.example.fyp2.R;
 import com.example.fyp2.databinding.ActivityNotesOpenBinding;
 import com.example.fyp2.databinding.ActivityProfileBinding;
 
-public class NotesOpen extends AppCompatActivity {
+public class NotesOpen extends BaseActivity {
     ActivityNotesOpenBinding activityNotesOpenBinding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

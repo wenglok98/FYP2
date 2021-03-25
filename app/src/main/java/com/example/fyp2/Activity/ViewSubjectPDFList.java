@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.fyp2.BaseApp.BaseActivity;
 import com.example.fyp2.Class.Material;
 import com.example.fyp2.MaterialListAdapter;
 import com.example.fyp2.R;
@@ -22,7 +23,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-public class ViewSubjectPDFList extends AppCompatActivity {
+public class ViewSubjectPDFList extends BaseActivity {
     ActivityViewSubjectPDFListBinding activityMainSubjectBinding;
     FirebaseFirestore fstore = FirebaseFirestore.getInstance();
     ArrayList<Material> materiallist = new ArrayList<>();

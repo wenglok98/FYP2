@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.fyp2.BaseApp.BaseActivity;
 import com.example.fyp2.Class.LangString;
 import com.example.fyp2.LangUtils;
 import com.example.fyp2.R;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 
 import io.realm.Realm;
 
-public class SettingActivity extends AppCompatActivity {
+public class SettingActivity extends BaseActivity {
     ArrayList<String> language = new ArrayList<>();
     ArrayList<String> languageCode = new ArrayList<>();
     ActivitySettingBinding activitySettingBinding;
