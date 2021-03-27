@@ -243,6 +243,7 @@ public class studentEnroll extends BaseActivity {
                 tempComment.setName(SharedPreferenceUtil.getFromPrefs(getApplicationContext(), "username", ""));
                 tempComment.setRating(starValue);
                 tempComment.setLeaveCommentDate(strDate);
+
                 tempComment.setUid(UID);
                 tempComment.setSubjectCode(dataSet.get(position).getSubjectCode());
 

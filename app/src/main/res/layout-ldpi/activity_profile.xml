@@ -51,7 +51,7 @@
                 android:layout_alignBottom="@id/diagonalLayout"
                 android:layout_marginLeft="@dimen/_50sdp"
                 android:layout_marginBottom="@dimen/_minus30sdp"
-                android:src="@drawable/jisoo" />
+                android:src="@drawable/default_symbol" />
 
             <LinearLayout
                 android:layout_width="match_parent"

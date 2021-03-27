@@ -50,7 +50,7 @@ public class SubjectListAdapter extends RecyclerView.Adapter<SubjectListAdapter.
                 Intent i = new Intent(context, SubjectDetailActivity.class);
                 i.putExtra("subjectName", sb.getSubjectName());
                 i.putExtra("subjectCode", sb.getSubjectCode());
-                i.putExtra("subjectDesc", sb.getSubjectDescription());
+                i.putExtra("subjectDescription", sb.getSubjectDescription());
                 i.putExtra("subjectType", sb.getSubjectType());
                 context.startActivity(i);
 

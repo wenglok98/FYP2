@@ -123,6 +123,12 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        initData();
+    }
+
     private void initPie() {
 
         pieChart.setUsePercentValues(true);
@@ -163,9 +169,12 @@ public class HomeFragment extends Fragment {
         fAuth = FirebaseAuth.getInstance();
         UID = fAuth.getCurrentUser().getUid();
 
+
         Task<QuerySnapshot> docRef = fStore.collection("Enrollment").whereEqualTo("studentID", UID).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                arrayList.clear();
+                subjectdata.clear();
                 for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                     EnrollClass enrollClass = new EnrollClass();
                     enrollClass.setTimeStamp(documentSnapshot.get("timeStamp").toString());

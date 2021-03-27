@@ -139,7 +139,7 @@ public class MenuListFragment extends Fragment {
             public void onFailure(@NonNull Exception e) {
                 int avatarSize = getResources().getDimensionPixelSize(R.dimen._64sdp);
                 Picasso.with(getActivity())
-                        .load(R.drawable.jisoo)
+                        .load(R.drawable.default_symbol)
                         .placeholder(R.drawable.img_circle_placeholder)
                         .resize(avatarSize, avatarSize)
                         .centerCrop()

@@ -104,7 +104,7 @@ public class SubjectDetailActivity extends BaseActivity {
                 EnrollClass enrollClass = new EnrollClass();
                 enrollClass.setStudentID(UID);
                 enrollClass.setStudentName(name);
-                enrollClass.setStudyMinutes("0");
+                enrollClass.setStudyMinutes("1");
                 enrollClass.setSubjectCode(i.getStringExtra("subjectCode"));
                 enrollClass.setTimeStamp(strDate);
                 enrollClass.setSubjectType(i.getStringExtra("subjectType"));
@@ -235,6 +235,7 @@ public class SubjectDetailActivity extends BaseActivity {
                     tempReview.setName(documentSnapshot.getString("name"));
                     tempReview.setEnrollmentDate(documentSnapshot.getString("enrollmentDate"));
                     tempReview.setComment(documentSnapshot.getString("comment"));
+                    tempReview.setLeaveCommentDate(documentSnapshot.getString("leaveCommentDate"));
 
 
                     arrayList.add(tempReview);

@@ -54,7 +54,7 @@ import java.util.Random;
 public class MainSubjectActivity extends BaseActivity {
 
     private final int[][] dotCoords = new int[5][2];
-    private final int[] pics = {R.drawable.p1};
+    private final int[] pics = {R.drawable.elon_musk,R.drawable.bill_gates,R.drawable.jack_ma,R.drawable.mark_zucker};
     private final int[] maps = {R.drawable.map_paris};
     private final int[] descriptions = {1, 2, 3, 4, 5};
     private final String[] countries = {"PARIS"};

@@ -33,6 +33,7 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:elevation="@dimen/_20sdp"
                 android:text="Subject Name"
+                android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_16sdp"
                 android:textStyle="bold" />
@@ -42,6 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/subjectName_tv"
+                android:textStyle="bold"
                 android:layout_centerHorizontal="true"
                 android:text="Subject Code"
                 android:textSize="@dimen/_12sdp" />
@@ -52,10 +54,13 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/subjectCode_tv"
                 android:layout_centerHorizontal="true"
+
                 android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginLeft="@dimen/_8sdp"
+                android:layout_marginRight="@dimen/_8sdp"
                 android:text="Subject Description"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_12sdp" />
+                android:textSize="@dimen/_8sdp" />
 
 
             <RelativeLayout
@@ -76,7 +81,7 @@
                 <TextView
                     android:id="@+id/review_htv"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_centerHorizontal="true"
                     android:elevation="@dimen/_20sdp"
                     android:text="@string/review"

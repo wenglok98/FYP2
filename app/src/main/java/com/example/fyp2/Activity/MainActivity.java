@@ -62,7 +62,7 @@ public class MainActivity extends BaseActivity {
         chat_im.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                                Intent intent = new Intent(MainActivity.this, ConversationActivity.class);
+                Intent intent = new Intent(MainActivity.this, ConversationActivity.class);
                 startActivity(intent);
             }
         });
@@ -76,6 +76,7 @@ public class MainActivity extends BaseActivity {
         setupChat();
 
     }
+
 
 
     private void initUI() {
