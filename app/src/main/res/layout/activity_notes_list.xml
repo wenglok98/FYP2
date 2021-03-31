@@ -12,12 +12,20 @@
         android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:layout_height="45dp"/>
-
+<com.google.android.material.button.MaterialButton
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Add Note"
+    android:textColor="@color/white"
+    android:id="@+id/add_notes_button"
+    android:layout_centerHorizontal="true"
+    android:drawableStart="@drawable/ic_baseline_note_add_24"
+    android:layout_below="@id/apptitleoutlet"/>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_marginTop="@dimen/_10sdp"
         android:id="@+id/notelistrecycler"
-        android:layout_below="@id/apptitleoutlet"
+        android:layout_below="@id/add_notes_button"
         android:layout_height="wrap_content"
 />
 </RelativeLayout>
