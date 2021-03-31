@@ -11,6 +11,7 @@ import com.example.fyp2.Class.LangString;
 import java.util.Locale;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 public class LangUtils {
 
@@ -45,7 +46,9 @@ public class LangUtils {
     }
 
     public void setLocale(String lang, Context context) {
-
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
                 Realm.init(context);
                 realm = Realm.getDefaultInstance();
                 Locale locale = new Locale(lang);
@@ -54,19 +57,26 @@ public class LangUtils {
                 Configuration conf = res.getConfiguration();
                 conf.locale = locale;
                 res.updateConfiguration(conf, dm);
-                LangString langset = realm.where(LangString.class).findFirst();
-                Realm.getDefaultInstance().executeTransaction(new Realm.Transaction() {
-                    @Override
-                    public void execute(Realm realm) {
-                        langset.setLangS(lang);
-                        realm.insertOrUpdate(langset);
-                    }
-                });
+                try {
+                    LangString langset = realm.where(LangString.class).findFirst();
+
+                    Realm.getDefaultInstance().executeTransaction(new Realm.Transaction() {
+                        @Override
+                        public void execute(Realm realm) {
+                            langset.setLangS(lang);
+                            realm.insertOrUpdate(langset);
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+
             }
+        }).start();
 
-
-
-
+    }
 
 
 }
