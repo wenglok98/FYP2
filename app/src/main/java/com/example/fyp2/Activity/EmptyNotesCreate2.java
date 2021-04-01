@@ -1,59 +1,56 @@
 package com.example.fyp2.Activity;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.fyp2.Class.EnrollClass;
+import com.example.fyp2.BaseApp.AppManager;
 import com.example.fyp2.Class.NotesClass;
+import com.example.fyp2.NotesListActivity;
 import com.example.fyp2.R;
 import com.example.fyp2.Utils.SharedPreferenceUtil;
 import com.example.fyp2.Utils.SnackUtil;
-import com.example.fyp2.databinding.ActivityAddReminderBinding;
+import com.example.fyp2.databinding.ActivityEmptyNotesCreate2Binding;
 import com.example.fyp2.databinding.ActivityEmptyNotesCreateBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class EmptyNotesCreate extends AppCompatActivity {
-    ActivityEmptyNotesCreateBinding activityMainSubjectBinding;
+public class EmptyNotesCreate2 extends AppCompatActivity {
     FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+    ActivityEmptyNotesCreate2Binding activityEmptyNotesCreate2Binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        activityMainSubjectBinding = ActivityEmptyNotesCreateBinding.inflate(getLayoutInflater());
-        View view = activityMainSubjectBinding.getRoot();
+        activityEmptyNotesCreate2Binding = ActivityEmptyNotesCreate2Binding.inflate(getLayoutInflater());
+        View view = activityEmptyNotesCreate2Binding.getRoot();
         setContentView(view);
-//      view  setContentView(R.layout.activity_empty_notes_create);
-
         initAppTitle();
+        String visiontext = getIntent().getStringExtra("notes");
 
-
+        activityEmptyNotesCreate2Binding.createNoteEdt.setText(visiontext);
     }
 
 
     @Override
     public void onBackPressed() {
-        if (!activityMainSubjectBinding.createNoteTitle.getText().toString().equals("")) {
+        if (!activityEmptyNotesCreate2Binding.createNoteTitle.getText().toString().equals("")) {
             savetofirebase();
 
         }
-        super.onBackPressed();
+//        super.onBackPressed();
+        AppManager.getAppManager().ToOtherActivity(NotesListActivity.class);
+        finish();
 
     }
 
@@ -83,13 +80,13 @@ public class EmptyNotesCreate extends AppCompatActivity {
         String UID = SharedPreferenceUtil.getFromPrefs(getApplicationContext(), "UID", "");
         tempNotes.setUID(UID);
         tempNotes.setTimeStamp(strDate);
-        tempNotes.setTitle(activityMainSubjectBinding.createNoteTitle.getText().toString());
-        tempNotes.setNotes(activityMainSubjectBinding.createNoteEdt.getText().toString());
+        tempNotes.setTitle(activityEmptyNotesCreate2Binding.createNoteTitle.getText().toString());
+        tempNotes.setNotes(activityEmptyNotesCreate2Binding.createNoteEdt.getText().toString());
         tempNotes.setFirebase_id(enrolltofirebase.getId());
+
         enrolltofirebase.set(tempNotes).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-
                 SnackUtil.show(getApplication(), "Saved");
 
             }
@@ -100,5 +97,4 @@ public class EmptyNotesCreate extends AppCompatActivity {
             }
         });
     }
-
 }

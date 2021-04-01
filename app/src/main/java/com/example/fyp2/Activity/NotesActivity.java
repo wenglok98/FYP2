@@ -102,7 +102,7 @@ public class NotesActivity extends BaseActivity {
                         .addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
                             @Override
                             public void onSuccess(FirebaseVisionText firebaseVisionText) {
-                                Intent intent = new Intent(NotesActivity.this, NotesOpen.class);
+                                Intent intent = new Intent(NotesActivity.this, EmptyNotesCreate2.class);
 
 
                                 intent.putExtra("notes", firebaseVisionText.getText());

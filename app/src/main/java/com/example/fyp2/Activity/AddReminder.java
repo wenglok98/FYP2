@@ -211,7 +211,7 @@ public class AddReminder extends BaseActivity {
     }
 
     private void initAppTitle() {
-        ((TextView) findViewById(R.id.app_title_tv)).setText("Set a Reminder");
+        ((TextView) findViewById(R.id.app_title_tv)).setText(getResources().getString(R.string.set_reminder));
         findViewById(R.id.btn_back).setVisibility(View.VISIBLE);
         findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
             @Override

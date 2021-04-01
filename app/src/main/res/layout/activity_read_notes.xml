@@ -15,7 +15,9 @@
     <EditText
         android:id="@+id/create_note_title"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_30sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+
         android:layout_below="@id/apptitleoutlet"
         android:hint="Title Here" />
 

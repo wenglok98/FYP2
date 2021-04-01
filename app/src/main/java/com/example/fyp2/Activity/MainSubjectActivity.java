@@ -54,7 +54,7 @@ import java.util.Random;
 public class MainSubjectActivity extends BaseActivity {
 
     private final int[][] dotCoords = new int[5][2];
-    private final int[] pics = {R.drawable.elon_musk,R.drawable.bill_gates,R.drawable.jack_ma,R.drawable.mark_zucker};
+    private final int[] pics = {R.drawable.elon_musk, R.drawable.bill_gates, R.drawable.jack_ma, R.drawable.mark_zucker};
     private final int[] maps = {R.drawable.map_paris};
     private final int[] descriptions = {1, 2, 3, 4, 5};
     private final String[] countries = {"PARIS"};
@@ -86,7 +86,7 @@ public class MainSubjectActivity extends BaseActivity {
     private int countryOffset2;
     private long countryAnimDuration;
     private int currentPosition;
-ActivityMainSubjectBinding activityMainSubjectBinding;
+    ActivityMainSubjectBinding activityMainSubjectBinding;
     private DecodeBitmapTask decodeMapBitmapTask;
     private DecodeBitmapTask.Listener mapLoadListener;
 
@@ -308,7 +308,7 @@ ActivityMainSubjectBinding activityMainSubjectBinding;
 //        clockSwitcher.setText(studyTime.get(pos % studyTime.size()));
 
 
-        initStudentEnrolled( subjectCode.get(pos % subjectCode.size()));
+        initStudentEnrolled(subjectCode.get(pos % subjectCode.size()));
         showMap(maps[pos % maps.length]);
 
         ViewCompat.animate(greenDot)
@@ -396,12 +396,12 @@ ActivityMainSubjectBinding activityMainSubjectBinding;
 //                Toast.makeText(MainSubjectActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
 
 
-                Intent intent1 = new Intent(getApplicationContext(),ViewSubjectPDFList.class);
+                Intent intent1 = new Intent(getApplicationContext(), ViewSubjectPDFList.class);
 
-                intent1.putExtra("subjectCode", subjectCode.get(activeCardPosition) );
-                intent1.putExtra("studyTime", studyTime.get(activeCardPosition) );
+                intent1.putExtra("subjectCode", subjectCode.get(activeCardPosition));
+                intent1.putExtra("studyTime", studyTime.get(activeCardPosition));
                 String asdasd = subjectCode.get(activeCardPosition);
-                Toast.makeText(MainSubjectActivity.this,subjectCode.get(activeCardPosition), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainSubjectActivity.this, subjectCode.get(activeCardPosition), Toast.LENGTH_SHORT).show();
 
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
                     startActivity(intent1);
@@ -461,7 +461,7 @@ ActivityMainSubjectBinding activityMainSubjectBinding;
     }
 
     private void initAppTitle() {
-        ((TextView) findViewById(R.id.app_title_tv)).setText("Subjects");
+        ((TextView) findViewById(R.id.app_title_tv)).setText(getResources().getString(R.string.subject_enroll));
         findViewById(R.id.btn_back).setVisibility(View.VISIBLE);
         findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
             @Override

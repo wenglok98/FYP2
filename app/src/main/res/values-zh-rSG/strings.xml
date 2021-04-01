@@ -20,6 +20,8 @@
     <string name="confirm_password">確認密碼</string>
     <string name="subject_enroll">现有科目</string>
     <string name="review">评论</string>
+    <string name="set_reminder">设置提醒</string>
+
     <string name="no_review">暂时还没有评论</string>
     <string name="student">学生</string>
     <string name="no_student">暂时还没有学生注册此科目</string>

@@ -24,6 +24,7 @@
     <string name="student">Students</string>
     <string name="no_student">No Student Enrolled in this subject yet</string>
     <string name="enroll_bt">Enroll</string>
+    <string name="set_reminder">Set a Reminder</string>
 
     <string name="changeLanguageTips">Are You Sure , You want to change Language?</string>
     <string name="ok">OK</string>
