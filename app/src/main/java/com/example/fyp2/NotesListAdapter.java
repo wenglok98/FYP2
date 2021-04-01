@@ -95,14 +95,14 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.MyVi
     private void showChangeLanguageDialog(String firebaseid,int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Delete Confirmation");
-        builder.setMessage(R.string.changeLanguageTips);
+        builder.setMessage("Are you sure you want to delete the Notes?");
         builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 deletfromFirebase(firebaseid,position);
             }
         });
-        builder.setNegativeButton("Are you sure you want to delete?", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
