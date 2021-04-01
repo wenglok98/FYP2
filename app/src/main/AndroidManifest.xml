@@ -23,23 +23,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Fyp2">
-        <activity android:name=".Activity.EmptyNotesCreate2"></activity>
-        <activity android:name=".Activity.ReadNotesActivity" />
-        <activity android:name=".Activity.EmptyNotesCreate" />
-        <activity android:name=".Activity.AddReminder" />
-        <activity android:name=".Activity.PDFView" />
-        <activity android:name=".Activity.ViewSubjectPDFList" />
-        <activity android:name=".Activity.DetailsActivity" />
-        <activity android:name=".Activity.MainSubjectActivity" />
-        <activity android:name=".Activity.SettingActivity" />
-        <activity android:name=".Activity.SubjectDetailActivity" />
-        <activity android:name=".Activity.studentEnroll" />
-        <activity android:name=".Activity.EnrollNewSubject" />
-        <activity android:name=".Activity.NotesOpen" />
-        <activity android:name=".Activity.ProfileActivity" />
-        <activity android:name=".NotesListActivity" />
-        <activity android:name=".Activity.NotesActivity" />
-        <activity android:name=".Activity.LoginActivity" />
+        <activity android:name=".Activity.EmptyNotesCreate2"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".Activity.ReadNotesActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.EmptyNotesCreate" android:screenOrientation="portrait" />
+        <activity android:name=".Activity.AddReminder" android:screenOrientation="portrait" />
+        <activity android:name=".Activity.PDFView" android:screenOrientation="portrait" />
+        <activity android:name=".Activity.ViewSubjectPDFList"  android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.DetailsActivity" android:screenOrientation="portrait" />
+        <activity android:name=".Activity.MainSubjectActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.SettingActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.SubjectDetailActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.studentEnroll" android:screenOrientation="portrait" />
+        <activity android:name=".Activity.EnrollNewSubject" android:screenOrientation="portrait" />
+        <activity android:name=".Activity.NotesOpen" android:screenOrientation="portrait" />
+        <activity android:name=".Activity.ProfileActivity" android:screenOrientation="portrait" />
+        <activity android:name=".NotesListActivity" android:screenOrientation="portrait" />
+        <activity android:name=".Activity.NotesActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".Activity.LoginActivity"  android:screenOrientation="portrait"/>
         <activity android:name=".Activity.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,7 +48,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.MainActivity" />
+        <activity android:name=".Activity.MainActivity" android:screenOrientation="portrait" />
 
         <meta-data
             android:name="com.applozic.application.key"

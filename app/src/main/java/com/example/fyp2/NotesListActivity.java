@@ -1,5 +1,6 @@
 package com.example.fyp2;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fyp2.Activity.EmptyNotesCreate;
+import com.example.fyp2.Activity.EmptyNotesCreate2;
 import com.example.fyp2.Activity.EnrollNewSubject;
 import com.example.fyp2.Activity.NotesActivity;
 import com.example.fyp2.BaseApp.AppManager;
@@ -27,11 +29,16 @@ import com.example.fyp2.Class.UsersClass;
 import com.example.fyp2.Utils.SharedPreferenceUtil;
 import com.example.fyp2.databinding.ActivityNotesListBinding;
 import com.example.fyp2.databinding.ActivityNotesOpenBinding;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.ml.vision.FirebaseVision;
+import com.google.firebase.ml.vision.common.FirebaseVisionImage;
+import com.google.firebase.ml.vision.text.FirebaseVisionText;
+import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -119,34 +126,65 @@ public class NotesListActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
 
-            Intent intent = new Intent(NotesListActivity.this, NotesActivity.class);
             Bundle extras = data.getExtras();
-            String asdasd = data.getDataString();
-            Uri sdfasdf = data.getData();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+
+
+            FirebaseVisionImage firebaseVisionImage = FirebaseVisionImage.fromBitmap(imageBitmap);
+
+
+            FirebaseVisionTextRecognizer detector = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
+
+            Task<FirebaseVisionText> result =
+                    detector.processImage(firebaseVisionImage)
+                            .addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
+                                @Override
+                                public void onSuccess(FirebaseVisionText firebaseVisionText) {
+                                    Intent intent = new Intent(NotesListActivity.this, EmptyNotesCreate2.class);
+
+
+                                    intent.putExtra("notes", firebaseVisionText.getText());
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(NotesListActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+//            Intent intent = new Intent(NotesListActivity.this, NotesActivity.class);
+//            Bundle extras = data.getExtras();
+//            String asdasd = data.getDataString();
+//            Uri sdfasdf = data.getData();
+////            imageBitmap = (Bitmap) extras.get("data");
 //            imageBitmap = (Bitmap) extras.get("data");
-            imageBitmap = (Bitmap) extras.get("data");
-            uri2 = getImageUri(NotesListActivity.this, imageBitmap);
-
-            try {
-                srcbmp = BitmapFactory.decodeStream(NotesListActivity.this.getContentResolver().openInputStream(uri2), null, null);
-
-//            srcbmp  = BitmapFactory.decodeStream(this.getContentResolver().openInputStream(uri2),null,null);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-            Uri tempUri = getImageUri(getApplicationContext(), srcbmp);
-//            String filename = "bitmap.png";
-//            FileOutputStream stream = null;
+//            uri2 = getImageUri(NotesListActivity.this, imageBitmap);
+//
 //            try {
-//                stream = this.openFileOutput(filename, Context.MODE_PRIVATE);
+//                srcbmp = BitmapFactory.decodeStream(NotesListActivity.this.getContentResolver().openInputStream(uri2), null, null);
+//
+////            srcbmp  = BitmapFactory.decodeStream(this.getContentResolver().openInputStream(uri2),null,null);
 //            } catch (FileNotFoundException e) {
 //                e.printStackTrace();
 //            }
-//            imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-
-
-            intent.putExtra("image", tempUri.toString());
-            startActivity(intent);
+//            Uri tempUri = getImageUri(getApplicationContext(), srcbmp);
+////            String filename = "bitmap.png";
+////            FileOutputStream stream = null;
+////            try {
+////                stream = this.openFileOutput(filename, Context.MODE_PRIVATE);
+////            } catch (FileNotFoundException e) {
+////                e.printStackTrace();
+////            }
+////            imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+//
+//
+//            intent.putExtra("image", tempUri.toString());
+//            startActivity(intent);
 //            AppManager.getAppManager().ToOtherActivity(NotesActivity.class);
 //            imageBitmap = (Bitmap) extras.get("data");
 //            im.setImageBitmap(imageBitmap);
@@ -189,6 +227,8 @@ public class NotesListActivity extends BaseActivity {
                     }
                 });
     }
+
+
 
     @Override
     protected void onResume() {

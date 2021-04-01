@@ -21,6 +21,8 @@
     <string name="subject_enroll">现有科目</string>
     <string name="review">评论</string>
     <string name="set_reminder">设置提醒</string>
+    <string name="forecast_result">成绩预测</string>
+    <string name="time_spent_each_subject">各科时间温习时间</string>
 
     <string name="no_review">暂时还没有评论</string>
     <string name="student">学生</string>

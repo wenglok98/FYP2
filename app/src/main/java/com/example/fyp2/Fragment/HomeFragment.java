@@ -159,7 +159,12 @@ public class HomeFragment extends Fragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                pieChart.setData(data);
+                try {
+                    pieChart.setData(data);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
             }
         }).start();
